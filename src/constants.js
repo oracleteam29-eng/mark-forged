@@ -6,7 +6,7 @@ export const BRAND = {
   displayName: 'MARK FORGED',
   tagline: 'Certified Mobile Auto Repair Specialist',
   subTagline: 'ASE Certified · Trustworthy · Dependable · Skilled',
-  email: 'markforgedmechanic@gmail.com',
+  email: 'markforgedmobilemechanicllc@gmail.com',
   phone: '(555) 800-MARK',
   copyright: '© 2025 Mark Forged Certified Mobile Mechanic LLC. All Rights Reserved.',
   social: {
@@ -194,11 +194,11 @@ export const FAQS = [
   },
   {
     q: 'Which locations do you cover?',
-    a: 'Mark Forged Certified Mobile Mechanic LLC operates as a traveling service and comes to client locations. Reach out at markforgedmechanic@gmail.com or through social media to confirm availability in your area.',
+    a: 'Mark Forged Certified Mobile Mechanic LLC operates as a traveling service and comes to client locations. Reach out at markforgedmobilemechanicllc@gmail.com or through social media to confirm availability in your area.',
   },
   {
     q: 'How can I schedule a service?',
-    a: 'Use the booking form on our website, send an email to markforgedmechanic@gmail.com, or contact us through Facebook, Twitter/X, or Instagram. We respond personally and quickly.',
+    a: 'Use the booking form on our website, send an email to markforgedmobilemechanicllc@gmail.com, or contact us through Facebook, Twitter/X, or Instagram. We respond personally and quickly.',
   },
   {
     q: 'What happens if an on-site repair isn\'t possible?',
@@ -210,7 +210,7 @@ export const FAQS = [
   },
   {
     q: 'Can you handle fleet vehicles?',
-    a: 'Yes. Mark Forged Certified Mobile Mechanic LLC provides scheduled fleet maintenance and repair plans for businesses. Email markforgedmechanic@gmail.com for fleet service details.',
+    a: 'Yes. Mark Forged Certified Mobile Mechanic LLC provides scheduled fleet maintenance and repair plans for businesses. Email markforgedmobilemechanicllc@gmail.com for fleet service details.',
   },
   {
     q: 'What if I\'m stuck with a breakdown?',
