@@ -1,150 +1,255 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { GearWatermark, Sparks, ASEBadge, MFBadge } from '../components/index.jsx'
-import { ShieldCheck, Award, Wrench, Clock, Users, CheckCircle, ArrowRight } from 'lucide-react'
+import { PageHeader, GearWatermark, ASEBadge, MFBadge } from '../components/index.jsx'
+import { VALUES, WHY_CHOOSE_US, BRAND } from '../constants.js'
+import { Mail, Facebook, Twitter, Instagram } from 'lucide-react'
 
-const VALUES = [
-  { icon: ShieldCheck, title: 'Integrity', desc: "We tell you exactly what's wrong and what it costs — no upsells, no unnecessary parts." },
-  { icon: Award,       title: 'Excellence', desc: "Every repair meets OEM standards. We treat every vehicle as if it were our own." },
-  { icon: Clock,       title: 'Reliability', desc: "We show up on time, every time. Your schedule matters to us." },
-  { icon: Users,       title: 'Customer First', desc: "From the first call to the final bolt, your satisfaction drives everything we do." },
-]
+// ── IntersectionObserver Counter Component ───────────────────
+function Counter({ to, suffix = "" }) {
+  const [count, setCount] = useState(0)
+  const ref = useRef(null)
 
-const TIMELINE = [
-  { year: '2015', event: 'Started hands-on training and automotive apprenticeship.' },
-  { year: '2017', event: 'Earned ASE Certification — became a certified automotive professional.' },
-  { year: '2019', event: 'Launched Mark Forged mobile mechanic service in the Atlanta metro area.' },
-  { year: '2021', event: 'Expanded to fleet maintenance programs and commercial accounts.' },
-  { year: '2023', event: 'Grew to 500+ satisfied customers with a perfect 5-star rating.' },
-  { year: '2025', event: 'Continuing to serve Atlanta with certified mobile automotive excellence.' },
-]
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const obs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        const start = performance.now()
+        const duration = 1800
+        const tick = now => {
+          const progress = Math.min(1, (now - start) / duration)
+          setCount(Math.round(progress * to))
+          if (progress < 1) {
+            requestAnimationFrame(tick)
+          }
+        }
+        requestAnimationFrame(tick)
+        obs.disconnect()
+      }
+    }, { threshold: 0.4 })
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [to])
+
+  return (
+    <div ref={ref} className="font-display text-5xl md:text-6xl text-[color:var(--brand-red)] red-glow">
+      {count}{suffix}
+    </div>
+  )
+}
 
 export default function About() {
+  // Set SEO tags
+  useEffect(() => {
+    document.title = "About MARK DERRICK | Mark Forged Certified Mobile Mechanic LLC"
+    document.querySelector('meta[name="description"]')?.setAttribute(
+      "content",
+      "Get to know MARK DERRICK — Mark Forged Certified Mobile Auto Repair Specialist & ASE Certified technician. Transparent, dependable, skilled mobile auto repair."
+    )
+    document.querySelector('meta[property="og:title"]')?.setAttribute(
+      "content",
+      "About Mark Forged Certified Mobile Mechanic LLC | MARK DERRICK"
+    )
+    document.querySelector('meta[property="og:description"]')?.setAttribute(
+      "content",
+      "ASE Certified mobile mechanic. Transparent. Dependable. Skilled. We bring the shop to you."
+    )
+  }, [])
+
   return (
     <>
-      {/* Hero */}
-      <section style={{ position: 'relative', padding: '7rem 1.5rem 4rem', background: '#0A0A0A', overflow: 'hidden' }}>
-        <GearWatermark size={500} top="-10%" right="-100px" />
-        <Sparks count={4} />
-        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          <div className="section-tag">Our Story</div>
-          <h1 className="font-display" style={{ fontSize: 'clamp(3rem, 8vw, 5.5rem)', lineHeight: 0.92, marginBottom: '1rem' }}>
+      <PageHeader
+        eyebrow="The Person Behind The Tools"
+        title={
+          <>
             <span className="chrome-text">ABOUT </span>
-            <span style={{ color: 'var(--brand-red)' }}>MARK FORGED</span>
-          </h1>
-          <p className="font-heading" style={{ color: 'var(--chrome)', fontSize: '1.125rem', maxWidth: 600, lineHeight: 1.65 }}>
-            Built on passion, certified through discipline, and driven by the promise of honest, top-quality mobile automotive service.
-          </p>
-        </div>
-      </section>
+            <span className="text-[color:var(--brand-red)] red-glow">MARK FORGED</span>
+          </>
+        }
+        subtitle="Mark Forged Certified · ASE Certified · Professional Mobile Auto Repair Specialist"
+      />
 
-      {/* Story */}
-      <section className="section" style={{ background: 'var(--surface-1)' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3rem', alignItems: 'center' }}>
+      {/* Story Section */}
+      <section className="bg-[color:var(--surface-1)] py-24 relative overflow-hidden">
+        <GearWatermark size={500} top="-100px" right="-150px" />
+        <div className="relative max-w-[1300px] mx-auto px-6 md:px-10 grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <div className="section-tag">Who We Are</div>
-            <h2 className="font-display" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--foreground)', marginBottom: '1.25rem' }}>
-              FORGED IN<br /><span style={{ color: 'var(--brand-red)' }}>DEDICATION</span>
+            <div className="eyebrow">Our Background</div>
+            <h2 className="font-display text-4xl md:text-5xl text-[color:var(--brand-red)] mt-3 section-title-bar">
+              EXPERT REPAIRS AT YOUR DOORSTEP
             </h2>
-            <p className="font-heading" style={{ color: 'var(--chrome)', lineHeight: 1.7, marginBottom: '1rem', fontSize: '0.9375rem' }}>
-              Mark Forged Certified Mobile Mechanic LLC was founded on one simple belief: quality automotive service shouldn't require you to miss a day of work or spend hours in a waiting room.
-            </p>
-            <p className="font-heading" style={{ color: 'var(--chrome)', lineHeight: 1.7, marginBottom: '1.5rem', fontSize: '0.9375rem' }}>
-              With years of hands-on experience and a deep passion for cars, our ASE-certified team brings professional-grade equipment and dealership-quality repairs directly to your home, office, or wherever your vehicle sits.
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-              {['ASE Certified Technician', 'Fully Mobile — We Come To You', '10+ Years Automotive Experience', 'Transparent Upfront Pricing', 'All Makes & Models Serviced'].map(item => (
-                <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--chrome)', fontSize: '0.875rem', fontFamily: 'Barlow, sans-serif' }}>
-                  <CheckCircle size={14} style={{ color: 'var(--brand-red)', flexShrink: 0 }} /> {item}
-                </div>
-              ))}
+            <div className="mt-6 space-y-4 text-[color:var(--chrome)] leading-relaxed">
+              <p>
+                Mark Forged Certified Mobile Mechanic LLC was founded on a straightforward but compelling concept: getting your vehicle repaired shouldn't mean taking a day off, calling a tow truck, or burning hours in a waiting area.
+              </p>
+              <p>
+                Lead Specialist MARK DERRICK is an ASE certified technician with extensive knowledge across all major vehicle systems. Whether you own a personal car or manage an entire fleet, we deliver the same professional tools, diagnostics, and repair expertise you'd find at a full-service garage — brought directly to wherever your vehicle is located.
+              </p>
+              <p className="text-[color:var(--gold)] font-heading">
+                No matter where you are, we bring the shop to you 🧰
+              </p>
+              <p>
+                That's not just a slogan — it's our entire business model. We've helped hundreds of vehicle owners avoid expensive tows, inflated shop markups, and the hassle of car problems disrupting their daily lives.
+              </p>
             </div>
           </div>
 
-          {/* Badges / Visual */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem' }}>
-            <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-              <ASEBadge size={120} />
-              <MFBadge size={120} />
-            </div>
-            <div className="red-border" style={{ color: 'var(--chrome)', fontSize: '0.875rem', lineHeight: 1.7, maxWidth: 320, fontFamily: 'Barlow, sans-serif' }}>
-              <strong style={{ color: '#fff', display: 'block', fontFamily: 'Bebas Neue, sans-serif', fontSize: '1.1rem', letterSpacing: '0.06em', marginBottom: '0.25rem' }}>
-                OUR COMMITMENT
-              </strong>
-              We stand behind every repair with parts and labor warranty. If it's not done right, we'll make it right — no questions asked.
+          <div className="relative">
+            <div className="rounded-lg overflow-hidden border-2 border-[color:var(--brand-red)] red-glow-box">
+              <img
+                src="/assets/fb1.jpg"
+                alt="Mark Forged — ASE Certified Mobile Mechanic"
+                className="w-full h-auto object-cover"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Values */}
-      <section className="section">
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <div className="section-tag" style={{ justifyContent: 'center' }}>Core Values</div>
-            <h2 className="font-display" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--foreground)' }}>
-              WHAT DRIVES US
-            </h2>
+      {/* Credentials Section */}
+      <section className="bg-[#0A0A0A] py-24 relative overflow-hidden">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-10 text-center">
+          <div className="eyebrow">Qualifications</div>
+          <h2 className="font-display text-4xl md:text-6xl chrome-text mt-3">DUAL CERTIFIED</h2>
+          <div className="mt-12 grid md:grid-cols-2 gap-6">
+            <div className="brand-card flex flex-col items-center text-center">
+              <div style={{ filter: 'drop-shadow(0 0 20px rgba(232,200,75,0.4))' }}>
+                <ASEBadge size={130} />
+              </div>
+              <h3 className="font-heading text-xl text-[color:var(--gold)] mt-5">ASE CERTIFIED</h3>
+              <p className="mt-3 text-sm text-[color:var(--chrome)] leading-relaxed">
+                ASE (Automotive Service Excellence) certification represents the gold standard in the automotive world. MARK DERRICK has successfully completed ASE's demanding exams to earn this credential — demonstrating professional competence across all automotive systems.
+              </p>
+            </div>
+
+            <div className="brand-card flex flex-col items-center text-center">
+              <div style={{ filter: 'drop-shadow(0 0 20px rgba(204,30,30,0.5))' }}>
+                <MFBadge size={130} />
+              </div>
+              <h3 className="font-heading text-xl text-[color:var(--brand-red)] mt-5">MARK FORGED CERTIFIED</h3>
+              <p className="mt-3 text-sm text-[color:var(--chrome)] leading-relaxed">
+                Mark Forged Certified Mobile Automotive Specialist — a focused certification recognizing mastery of mobile auto repair methods, on-location diagnostic techniques, and fleet maintenance procedures.
+              </p>
+            </div>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
-            {VALUES.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="card" style={{ padding: '2rem', textAlign: 'center' }}>
-                <div style={{
-                  width: 56, height: 56, borderRadius: '50%', margin: '0 auto 1rem',
-                  background: 'rgba(204,30,30,0.1)', border: '1px solid rgba(204,30,30,0.25)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--brand-red)',
-                }}>
-                  <Icon size={24} />
-                </div>
-                <h3 className="font-display" style={{ fontSize: '1.3rem', color: 'var(--foreground)', marginBottom: '0.6rem' }}>{title}</h3>
-                <p className="font-heading" style={{ fontSize: '0.875rem', color: 'var(--chrome)', lineHeight: 1.6 }}>{desc}</p>
+        </div>
+      </section>
+
+      {/* Values Section */}
+      <section
+        className="py-24 relative overflow-hidden"
+        style={{
+          background: 'linear-gradient(135deg, #8B1010 0%, #1A0606 60%, #0A0A0A 100%)',
+        }}
+      >
+        <div className="max-w-[1200px] mx-auto px-6 md:px-10">
+          <div className="text-center text-white">
+            <div className="eyebrow text-[color:var(--gold)]">What Drives Us</div>
+            <h2 className="font-display text-4xl md:text-6xl mt-3">OUR PURPOSE</h2>
+            <p className="mt-5 max-w-2xl mx-auto text-white/90 italic text-lg">
+              "To deliver fast, dependable, mobile auto repair that keeps your vehicles running — no matter where you are."
+            </p>
+          </div>
+
+          <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {VALUES.map(val => (
+              <div key={val.title} className="bg-[#0A0A0A] border-l-4 border-[color:var(--brand-red)] p-5 rounded-sm">
+                <div className="text-2xl">{val.icon}</div>
+                <h4 className="font-heading text-lg text-[color:var(--foreground)] mt-2">{val.title}</h4>
+                <p className="text-sm text-[color:var(--steel)] mt-1">{val.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="section" style={{ background: 'var(--surface-1)' }}>
-        <div className="container" style={{ maxWidth: 700 }}>
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <div className="section-tag" style={{ justifyContent: 'center' }}>Our Journey</div>
-            <h2 className="font-display" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--foreground)' }}>
-              THE TIMELINE
-            </h2>
-          </div>
-          <div style={{ position: 'relative', paddingLeft: '2.5rem' }}>
-            {/* Vertical line */}
-            <div style={{ position: 'absolute', left: 12, top: 0, bottom: 0, width: 2, background: 'linear-gradient(to bottom, var(--brand-red), var(--border))' }} />
-            {TIMELINE.map(({ year, event }, i) => (
-              <div key={year} style={{ position: 'relative', marginBottom: '2rem', paddingBottom: i < TIMELINE.length - 1 ? '0' : '0' }}>
-                {/* Dot */}
-                <div style={{
-                  position: 'absolute', left: -30, top: 4, width: 12, height: 12,
-                  borderRadius: '50%', background: 'var(--brand-red)', border: '2px solid var(--background)',
-                  boxShadow: '0 0 10px rgba(204,30,30,0.4)',
-                }} />
-                <div className="font-display" style={{ fontSize: '1.1rem', color: 'var(--brand-red)', marginBottom: '0.25rem' }}>{year}</div>
-                <p className="font-heading" style={{ fontSize: '0.9375rem', color: 'var(--chrome)', lineHeight: 1.6 }}>{event}</p>
+      {/* Stats Section */}
+      <section className="bg-[#0A0A0A] py-20">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          {[
+            { to: 500, suffix: '+', label: 'Vehicles Repaired' },
+            { to: 100, suffix: '%', label: 'Fully Mobile — We Travel To You' },
+            { to: 2, suffix: '', label: 'Certifications (ASE + MF)' },
+            { to: 0, suffix: '', label: 'Tow Trucks Needed' },
+          ].map(stat => (
+            <div key={stat.label}>
+              <Counter to={stat.to} suffix={stat.suffix} />
+              <div className="mt-2 text-xs text-[color:var(--chrome)] uppercase tracking-widest">
+                {stat.label}
               </div>
-            ))}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Owner Section */}
+      <section className="bg-[color:var(--surface-1)] py-24">
+        <div className="max-w-[1000px] mx-auto px-6 md:px-10">
+          <div className="brand-card">
+            <div className="grid md:grid-cols-3 gap-8 items-center">
+              <div className="md:col-span-1">
+                <div className="rounded-md overflow-hidden border border-[color:var(--brand-red)]/50">
+                  <img
+                    src="/assets/jay-owner.png"
+                    alt="MARK DERRICK, Lead Technician"
+                    className="w-full h-72 object-cover object-top"
+                  />
+                </div>
+              </div>
+              <div className="md:col-span-2">
+                <div className="eyebrow">The Specialist</div>
+                <h3 className="font-display text-4xl chrome-text mt-2">MARK DERRICK</h3>
+                <p className="text-[color:var(--gold)] font-heading mt-1">Lead Specialist & Technician</p>
+                <p className="text-xs text-[color:var(--steel)] uppercase tracking-widest mt-1">
+                  Mark Forged Certified · ASE Certified
+                </p>
+                <p className="mt-5 text-[color:var(--chrome)] leading-relaxed">
+                  We created this business to offer people a better alternative. A certified mechanic who travels to you, provides an upfront quote, and gets it right the first time. No shop politics. No unnecessary add-ons. Just expert auto repair at your doorstep.
+                </p>
+                <div className="mt-5 flex flex-wrap gap-4 text-sm">
+                  <a href={`mailto:${BRAND.email}`} className="flex items-center gap-2 text-[color:var(--chrome)] hover:text-[color:var(--brand-red)]">
+                    📧 {BRAND.email}
+                  </a>
+                </div>
+                <div className="mt-3 flex gap-4">
+                  <a href={BRAND.social.facebook} target="_blank" rel="noreferrer" className="text-[color:var(--chrome)] hover:text-[color:var(--brand-red)]">
+                    <Facebook size={20} />
+                  </a>
+                  <a href={BRAND.social.twitter} target="_blank" rel="noreferrer" className="text-[color:var(--chrome)] hover:text-[color:var(--brand-red)]">
+                    <Twitter size={20} />
+                  </a>
+                  <a href={BRAND.social.instagram} target="_blank" rel="noreferrer" className="text-[color:var(--chrome)] hover:text-[color:var(--brand-red)]">
+                    <Instagram size={20} />
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section style={{ background: 'linear-gradient(135deg, #0f0a0a, #1a0505)', padding: '5rem 1.5rem', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(204,30,30,0.12) 0%, transparent 70%)' }} />
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <h2 className="font-display" style={{ fontSize: 'clamp(2rem, 6vw, 4rem)', color: '#fff', marginBottom: '1rem' }}>
-            READY TO EXPERIENCE<br /><span style={{ color: 'var(--brand-red)' }}>THE DIFFERENCE?</span>
-          </h2>
-          <p className="font-heading" style={{ color: 'var(--chrome)', maxWidth: 480, margin: '0 auto 2.5rem', lineHeight: 1.6 }}>
-            Let Mark Forged handle it — certified, honest, and right at your door.
-          </p>
-          <Link to="/book" className="btn-primary" style={{ fontSize: '1.1rem', padding: '1rem 2.5rem' }}>
-            Book Now <ArrowRight size={18} />
-          </Link>
+      {/* Why Choose Us */}
+      <section className="bg-[color:var(--surface-2)] py-24 grease-texture">
+        <div className="max-w-[1300px] mx-auto px-6 md:px-10">
+          <div className="text-center">
+            <div className="eyebrow">The Mark Forged Advantage</div>
+            <h2 className="font-display text-4xl md:text-6xl chrome-text mt-3">
+              WHY PICK MARK FORGED
+            </h2>
+          </div>
+          <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {WHY_CHOOSE_US.map(item => (
+              <div key={item.title} className="brand-card">
+                <div className="text-3xl">{item.icon}</div>
+                <h3 className="font-heading text-lg text-[color:var(--foreground)] mt-3">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-[color:var(--steel)] mt-2 leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </>

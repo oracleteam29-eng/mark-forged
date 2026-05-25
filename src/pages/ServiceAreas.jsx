@@ -1,191 +1,163 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { GearWatermark, Sparks } from '../components/index.jsx'
-import { SERVICE_AREAS, BRAND } from '../constants.js'
-import { MapPin, Search, Phone, Calendar, Compass, ShieldCheck } from 'lucide-react'
+import { PageHeader } from '../components/index.jsx'
+import { BRAND } from '../constants.js'
+import { Home as HomeIcon, Building2, AlertTriangle, HelpCircle } from 'lucide-react'
 
 export default function ServiceAreas() {
-  const [searchQuery, setSearchQuery] = useState('')
-
-  const filteredAreas = SERVICE_AREAS.filter(area =>
-    area.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  // Set SEO tags
+  useEffect(() => {
+    document.title = "Service Areas | Mark Forged Certified Mobile Mechanic LLC"
+    document.querySelector('meta[name="description"]')?.setAttribute(
+      "content",
+      "Mark Forged Certified Mobile Mechanic LLC covers a broad area for mobile auto repair. Residential, commercial, and on-site emergency service available."
+    )
+    document.querySelector('meta[property="og:title"]')?.setAttribute(
+      "content",
+      "Service Areas | Mark Forged Certified Mobile Mechanic LLC"
+    )
+    document.querySelector('meta[property="og:description"]')?.setAttribute(
+      "content",
+      "No matter where you are, we travel to you. Residential, commercial, and emergency mobile mechanic coverage."
+    )
+  }, [])
 
   return (
-    <div style={{ position: 'relative', minHeight: '100vh', padding: '7rem 1.5rem 4rem', background: '#0A0A0A', overflow: 'hidden' }}>
-      {/* Background decorations */}
-      <GearWatermark size={550} top="-5%" right="-80px" />
-      <Sparks count={5} />
-
-      <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-        {/* Header */}
-        <div style={{ maxWidth: 800, marginBottom: '4rem' }}>
-          <div className="section-tag">Coverage Area</div>
-          <h1 className="font-display" style={{ fontSize: 'clamp(3rem, 8vw, 5.5rem)', lineHeight: 0.92, marginBottom: '1.5rem' }}>
-            <span className="chrome-text">WE BRING THE SHOP </span>
-            <span style={{ color: 'var(--brand-red)' }}>TO YOU</span>
-          </h1>
-          <p className="font-heading" style={{ fontSize: 'clamp(1.1rem, 3vw, 1.4rem)', color: 'var(--chrome)', fontWeight: 500, lineHeight: 1.4 }}>
-            Professional mobile auto repair services direct to your driveway, office parking lot, or roadside location across the Greater Atlanta Metro Area.
-          </p>
-        </div>
-
-        {/* Search & Grid Layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '3rem', margin: '3rem 0' }} className="service-areas-layout">
-          {/* Left panel: Info & Search */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-            <div className="card" style={{ padding: '2.5rem', background: 'linear-gradient(135deg, var(--surface-1) 0%, rgba(20,20,20,0.8) 100%)' }}>
-              <h3 className="font-display" style={{ fontSize: '2rem', color: '#fff', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <Compass style={{ color: 'var(--brand-red)' }} /> FIND YOUR CITY
-              </h3>
-              <p className="font-heading" style={{ color: 'var(--steel)', fontSize: '0.95rem', marginBottom: '2rem', lineHeight: 1.6 }}>
-                Type your city or area below to instantly check if you are within our certified mobile mechanic service coverage zone.
-              </p>
-
-              {/* Search input with icon */}
-              <div style={{ position: 'relative', width: '100%', marginBottom: '2rem' }}>
-                <input
-                  type="text"
-                  placeholder="Search service areas (e.g. Marietta, Atlanta...)"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  style={{
-                    paddingLeft: '3rem',
-                    fontSize: '1rem',
-                    height: '52px',
-                    borderColor: searchQuery ? 'var(--brand-red)' : 'var(--border)'
-                  }}
-                />
-                <Search
-                  size={20}
-                  style={{
-                    position: 'absolute',
-                    left: '1.25rem',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    color: searchQuery ? 'var(--brand-red)' : 'var(--steel)',
-                    transition: 'color 0.2s'
-                  }}
-                />
-              </div>
-
-              {/* Status Message */}
-              {searchQuery && (
-                <div style={{
-                  padding: '1rem',
-                  borderRadius: '4px',
-                  background: filteredAreas.length > 0 ? 'rgba(232, 200, 75, 0.05)' : 'rgba(204, 30, 30, 0.05)',
-                  border: `1px solid ${filteredAreas.length > 0 ? 'rgba(232, 200, 75, 0.15)' : 'rgba(204, 30, 30, 0.15)'}`,
-                  color: filteredAreas.length > 0 ? 'var(--gold)' : 'var(--brand-red-bright)',
-                  fontFamily: 'Barlow, sans-serif',
-                  fontWeight: 600,
-                  fontSize: '0.9rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  marginBottom: '2rem'
-                }}>
-                  <MapPin size={18} />
-                  {filteredAreas.length > 0
-                    ? `Yes! We service ${filteredAreas.length} location(s) matching "${searchQuery}".`
-                    : `No exact match for "${searchQuery}". Call us! We may still service your area.`
-                  }
-                </div>
-              )}
-
-              {/* Grid of badges */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: '0.75rem' }}>
-                {filteredAreas.map((area, idx) => (
-                  <div key={idx} className="area-badge" style={{ justifyContent: 'center', textAlign: 'center', fontWeight: 600 }}>
-                    <MapPin size={13} style={{ color: 'var(--brand-red)', flexShrink: 0 }} />
-                    <span>{area}</span>
-                  </div>
-                ))}
-              </div>
-
-              {filteredAreas.length === 0 && (
-                <div style={{ textAlign: 'center', padding: '2rem 1rem', color: 'var(--steel)' }}>
-                  <p className="font-heading" style={{ fontSize: '1rem', marginBottom: '1rem' }}>
-                    Don't see your city listed? We often travel outside our standard zone for fleets, engine diagnostics, and multi-vehicle service appointments.
-                  </p>
-                  <a href={`tel:${BRAND.phone}`} className="btn-secondary" style={{ fontSize: '0.8rem', padding: '0.5rem 1.25rem' }}>
-                    <Phone size={14} /> Call for Special Booking
-                  </a>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Features row */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '4rem' }}>
-          <div className="card" style={{ padding: '2rem', background: 'var(--surface-1)' }}>
-            <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'rgba(204,30,30,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--brand-red)', marginBottom: '1.25rem' }}>
-              <ShieldCheck size={24} />
-            </div>
-            <h4 className="font-display" style={{ fontSize: '1.5rem', color: '#fff', marginBottom: '0.75rem' }}>Certified Mechanics</h4>
-            <p className="font-heading" style={{ color: 'var(--steel)', fontSize: '0.9rem', lineHeight: 1.6 }}>
-              All repairs are performed by ASE Certified, highly qualified technicians equipped with industry-leading diagnostic scanners and tools.
-            </p>
-          </div>
-
-          <div className="card" style={{ padding: '2rem', background: 'var(--surface-1)' }}>
-            <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'rgba(204,30,30,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--brand-red)', marginBottom: '1.25rem' }}>
-              <MapPin size={24} />
-            </div>
-            <h4 className="font-display" style={{ fontSize: '1.5rem', color: '#fff', marginBottom: '0.75rem' }}>Zero Towing Fees</h4>
-            <p className="font-heading" style={{ color: 'var(--steel)', fontSize: '0.9rem', lineHeight: 1.6 }}>
-              Skip the expensive tow truck bills. We drive our fully stock auto workshop directly to your exact location, saving you time and money.
-            </p>
-          </div>
-
-          <div className="card" style={{ padding: '2rem', background: 'var(--surface-1)' }}>
-            <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'rgba(204,30,30,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--brand-red)', marginBottom: '1.25rem' }}>
-              <Calendar size={24} />
-            </div>
-            <h4 className="font-display" style={{ fontSize: '1.5rem', color: '#fff', marginBottom: '0.75rem' }}>Flexible Scheduling</h4>
-            <p className="font-heading" style={{ color: 'var(--steel)', fontSize: '0.9rem', lineHeight: 1.6 }}>
-              Available Monday through Saturday from 7:00 AM to 7:00 PM. Book online or call to secure a high-priority emergency mobile dispatch.
-            </p>
-          </div>
-        </div>
-
-        {/* CTA banner */}
-        <div style={{
-          marginTop: '5rem',
-          padding: '3.5rem 2.5rem',
-          background: 'linear-gradient(135deg, rgba(204,30,30,0.15) 0%, rgba(10,10,10,0.95) 100%)',
-          border: '1.5px solid var(--brand-red)',
-          borderRadius: '8px',
-          textAlign: 'center',
-          position: 'relative',
-          overflow: 'hidden'
-        }}>
-          <GearWatermark size={300} top="-50px" right="-50px" />
-          <h2 className="font-display" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: '#fff', marginBottom: '1rem', lineHeight: 1 }}>
-            READY TO GET BACK ON THE ROAD?
-          </h2>
-          <p className="font-heading" style={{ color: 'var(--chrome)', fontSize: '1.1rem', maxWidth: 650, margin: '0 auto 2.5rem', lineHeight: 1.5 }}>
-            Don't spend your day waiting in a greasy repair shop waiting room. Let the certified specialists at Mark Forged handle your vehicle repair on-site today.
-          </p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link to="/book" className="btn-primary" style={{ padding: '0.9rem 2.25rem', fontSize: '0.95rem' }}>
-              <Calendar size={18} /> Schedule Mobile Visit
-            </Link>
-            <a href={`tel:${BRAND.phone}`} className="btn-secondary" style={{ padding: '0.9rem 2.25rem', fontSize: '0.95rem' }}>
-              <Phone size={18} /> {BRAND.phone}
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <style>{`
-        @media(min-width: 992px) {
-          .service-areas-layout {
-            grid-template-columns: 1fr !important;
-          }
+    <>
+      <PageHeader
+        eyebrow="Our Reach"
+        title={
+          <>
+            <span className="chrome-text">WHERE WE </span>
+            <span className="text-[color:var(--brand-red)] red-glow">OPERATE</span>
+          </>
         }
-      `}</style>
-    </div>
+        subtitle="Mark Forged Certified Mobile Mechanic LLC travels to your location — wherever that may be."
+      />
+
+      {/* Intro text */}
+      <section className="bg-[#0A0A0A] py-20">
+        <div className="max-w-[900px] mx-auto px-6 md:px-10 text-center">
+          <p className="text-lg text-[color:var(--chrome)] leading-relaxed">
+            No matter where you are, we bring the shop to you 🧰 Mark Forged Certified Mobile Mechanic LLC covers a wide service radius for all mobile auto repair needs. Not sure if we reach your area? Just drop us an email or message — we'll confirm right away.
+          </p>
+        </div>
+      </section>
+
+      {/* Card info section */}
+      <section className="bg-[color:var(--surface-1)] py-20">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-10">
+          <div
+            className="brand-card text-center"
+            style={{
+              borderColor: "var(--brand-red)",
+              boxShadow: "0 0 40px rgba(204,30,30,0.2)",
+            }}
+          >
+            <h2 className="font-display text-3xl md:text-5xl chrome-text">
+              MOBILE SERVICE — WE DRIVE TO YOU
+            </h2>
+            <p className="mt-5 max-w-3xl mx-auto text-[color:var(--chrome)] leading-relaxed">
+              Unlike a traditional garage, Mark Forged Certified Mobile Mechanic LLC isn't anchored to one spot. We deliver professional auto repair directly to your address. Our coverage includes residential streets, commercial properties, parking structures, job sites, and fleet depots.
+            </p>
+          </div>
+
+          <div className="mt-10 grid md:grid-cols-3 gap-6">
+            {[
+              {
+                icon: <HomeIcon className="text-[color:var(--brand-red)]" size={28} />,
+                title: "Home & Residential",
+                desc: "Your driveway, apartment lot, neighborhood street."
+              },
+              {
+                icon: <Building2 className="text-[color:var(--brand-red)]" size={28} />,
+                title: "Business & Commercial",
+                desc: "Office parking, business lots, fleet facilities."
+              },
+              {
+                icon: <AlertTriangle className="text-[color:var(--brand-red)]" size={28} />,
+                title: "Roadside & Emergency",
+                desc: "Vehicle broke down? We travel to your breakdown spot."
+              }
+            ].map(item => (
+              <div key={item.title} className="brand-card">
+                {item.icon}
+                <h3 className="font-heading text-lg text-[color:var(--foreground)] mt-3">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-[color:var(--steel)] mt-2">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-10 text-center text-sm text-[color:var(--steel)]">
+            Reach out directly at{" "}
+            <a href={`mailto:${BRAND.email}`} className="text-[color:var(--brand-red)] hover:underline">
+              {BRAND.email}
+            </a>
+            {" "}or through social media to verify coverage for your specific location. We serve an extensive area and can frequently accommodate requests beyond our standard range.
+          </p>
+        </div>
+      </section>
+
+      {/* Fleet Banner */}
+      <section className="bg-[#0A0A0A] py-16">
+        <div className="max-w-[1100px] mx-auto px-6 md:px-10">
+          <div className="bg-[color:var(--surface-1)] border-l-4 border-[color:var(--gold)] p-7 rounded-sm flex items-start gap-4">
+            <Building2 className="text-[color:var(--gold)] shrink-0 mt-1" size={28} />
+            <div>
+              <h3 className="font-heading text-xl text-[color:var(--gold)]">FLEET ACCOUNTS</h3>
+              <p className="text-[color:var(--chrome)] mt-2 leading-relaxed">
+                We arrange recurring on-site maintenance for commercial fleets, cutting vehicle downtime across your entire operation at your premises.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Google Map Section */}
+      <section className="bg-[color:var(--surface-2)] py-20">
+        <div className="max-w-[1100px] mx-auto px-6 md:px-10">
+          <div className="text-center">
+            <div className="eyebrow">Service Map</div>
+            <h2 className="font-display text-3xl md:text-5xl chrome-text mt-3">
+              YOUR ADDRESS = OUR WORKSHOP
+            </h2>
+          </div>
+          <div className="mt-10 rounded-lg overflow-hidden border border-[#1F1F1F]">
+            <iframe
+              title="Mark Forged Mobile Service Area"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6857811!2d-84.5!3d34.9!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDAwJzAwLjAiTiA4NMKwMDAnMDAuMCJX!5e0!3m2!1sen!2sus!4v1700000000000"
+              width="100%"
+              height="380"
+              style={{ border: 0, filter: "invert(0.9) hue-rotate(180deg) saturate(0.7)" }}
+              allowFullScreen={true}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section
+        className="py-20"
+        style={{
+          background: 'linear-gradient(135deg, #8B1010 0%, #1A0606 100%)',
+        }}
+      >
+        <div className="max-w-[800px] mx-auto px-6 md:px-10 text-center text-white">
+          <h3 className="font-display text-3xl md:text-5xl">UNSURE IF WE REACH YOU?</h3>
+          <p className="mt-4 text-white/90">
+            Drop us a message — we'll verify your area instantly.
+          </p>
+          <Link to="/contact" className="btn-primary mt-7 !bg-black hover:!bg-[#1A1A1A]">
+            Get In Touch
+          </Link>
+        </div>
+      </section>
+    </>
   )
 }

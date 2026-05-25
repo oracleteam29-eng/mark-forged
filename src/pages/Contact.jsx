@@ -1,285 +1,189 @@
-import React, { useState } from 'react'
-import { GearWatermark, Sparks } from '../components/index.jsx'
+import React, { useEffect, useState } from 'react'
+import { PageHeader, ASEBadge, MFBadge } from '../components/index.jsx'
 import { BRAND } from '../constants.js'
-import { Phone, Mail, Clock, MapPin, CheckCircle, Send, Facebook, Twitter, Instagram } from 'lucide-react'
+import { Mail, Facebook, Twitter, Instagram, Send, CheckCircle2 } from 'lucide-react'
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: ''
-  })
+  // Set SEO tags
+  useEffect(() => {
+    document.title = "Contact | Mark Forged Certified Mobile Mechanic LLC | Mobile Auto Repair"
+    document.querySelector('meta[name="description"]')?.setAttribute(
+      "content",
+      "Contact Mark Forged Certified Mobile Mechanic LLC. Call, text, email, or book online for fast, reliable mobile auto repair."
+    )
+    document.querySelector('meta[property="og:title"]')?.setAttribute(
+      "content",
+      "Contact Mark Forged Certified Mobile Mechanic LLC"
+    )
+    document.querySelector('meta[property="og:description"]')?.setAttribute(
+      "content",
+      "Reach us directly via email, Facebook, X, or Instagram. We come to you."
+    )
+  }, [])
+
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
-
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     setLoading(true)
-    // Simulate API request
     setTimeout(() => {
       setLoading(false)
       setSubmitted(true)
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
-    }, 1200)
+    }, 800)
   }
 
   return (
-    <div style={{ position: 'relative', minHeight: '100vh', padding: '7rem 1.5rem 4rem', background: '#0A0A0A', overflow: 'hidden' }}>
-      {/* Background decorations */}
-      <GearWatermark size={500} top="-10%" right="-50px" />
-      <Sparks count={4} />
-
-      <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-        {/* Header */}
-        <div style={{ maxWidth: 800, marginBottom: '4rem' }}>
-          <div className="section-tag">Direct Line</div>
-          <h1 className="font-display" style={{ fontSize: 'clamp(3rem, 8vw, 5.5rem)', lineHeight: 0.92, marginBottom: '1.5rem' }}>
+    <>
+      <PageHeader
+        eyebrow="Get In Touch"
+        title={
+          <>
             <span className="chrome-text">CONTACT </span>
-            <span style={{ color: 'var(--brand-red)' }}>OUR TEAM</span>
-          </h1>
-          <p className="font-heading" style={{ fontSize: 'clamp(1.1rem, 3vw, 1.4rem)', color: 'var(--chrome)', fontWeight: 500, lineHeight: 1.4 }}>
-            Have a question, need an urgent roadside dispatch, or want a customized quote? Send us a message or call directly. We are ready to help.
-          </p>
-        </div>
+            <span className="text-[color:var(--brand-red)] red-glow">MARK FORGED</span>
+          </>
+        }
+        subtitle="Call, text, email, or book online — we respond fast."
+      />
 
-        {/* Two column layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '3rem' }} className="contact-layout">
-          {/* Column 1: Info */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-            {/* Contact details */}
-            <div className="card" style={{ padding: '2.5rem', background: 'var(--surface-1)' }}>
-              <h3 className="font-display" style={{ fontSize: '1.85rem', color: '#fff', marginBottom: '1.75rem', letterSpacing: '0.05em' }}>
-                REACH US DIRECTLY
-              </h3>
+      <section className="bg-[color:var(--surface-1)] py-20">
+        <div className="max-w-[1300px] mx-auto px-6 md:px-10 grid lg:grid-cols-5 gap-10">
+          
+          {/* Form Column */}
+          <div className="lg:col-span-3">
+            <div className="brand-card">
+              <div className="eyebrow">Get In Touch</div>
+              <h2 className="font-display text-3xl md:text-4xl text-[color:var(--brand-red)] mt-2">
+                SEND A REQUEST
+              </h2>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
-                  <div style={{ width: 44, height: 44, borderRadius: '4px', background: 'rgba(204,30,30,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--brand-red)', flexShrink: 0 }}>
-                    <Phone size={20} />
-                  </div>
-                  <div>
-                    <div className="font-heading" style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--steel)', letterSpacing: '0.1em', marginBottom: '0.2rem' }}>Call or Text</div>
-                    <a href={`tel:${BRAND.phone}`} className="font-heading" style={{ fontSize: '1.25rem', color: '#fff', fontWeight: 700, transition: 'color 0.2s' }}
-                      onMouseEnter={e => e.target.style.color = 'var(--brand-red)'}
-                      onMouseLeave={e => e.target.style.color = '#fff'}
-                    >
-                      {BRAND.phone}
-                    </a>
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
-                  <div style={{ width: 44, height: 44, borderRadius: '4px', background: 'rgba(204,30,30,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--brand-red)', flexShrink: 0 }}>
-                    <Mail size={20} />
-                  </div>
-                  <div>
-                    <div className="font-heading" style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--steel)', letterSpacing: '0.1em', marginBottom: '0.2rem' }}>Email Address</div>
-                    <a href={`mailto:${BRAND.email}`} className="font-heading" style={{ fontSize: '1.15rem', color: '#fff', fontWeight: 600, transition: 'color 0.2s' }}
-                      onMouseEnter={e => e.target.style.color = 'var(--brand-red)'}
-                      onMouseLeave={e => e.target.style.color = '#fff'}
-                    >
-                      {BRAND.email}
-                    </a>
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
-                  <div style={{ width: 44, height: 44, borderRadius: '4px', background: 'rgba(204,30,30,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--brand-red)', flexShrink: 0 }}>
-                    <Clock size={20} />
-                  </div>
-                  <div>
-                    <div className="font-heading" style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--steel)', letterSpacing: '0.1em', marginBottom: '0.2rem' }}>Hours of Operation</div>
-                    <p className="font-heading" style={{ fontSize: '1rem', color: 'var(--chrome)', fontWeight: 600 }}>
-                      Monday – Saturday: 7:00 AM – 7:00 PM
-                    </p>
-                    <p style={{ fontSize: '0.8rem', color: 'var(--steel)', marginTop: '0.15rem' }}>
-                      Sunday: Emergency Only (Call Direct)
-                    </p>
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
-                  <div style={{ width: 44, height: 44, borderRadius: '4px', background: 'rgba(204,30,30,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--brand-red)', flexShrink: 0 }}>
-                    <MapPin size={20} />
-                  </div>
-                  <div>
-                    <div className="font-heading" style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--steel)', letterSpacing: '0.1em', marginBottom: '0.2rem' }}>Service Location</div>
-                    <p className="font-heading" style={{ fontSize: '1.05rem', color: 'var(--chrome)', fontWeight: 600 }}>
-                      Greater Atlanta Metro Area, GA
-                    </p>
-                    <p style={{ fontSize: '0.8rem', color: 'var(--steel)', marginTop: '0.15rem' }}>
-                      We drive our mobile automotive workshop straight to you.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Social links */}
-              <div style={{ marginTop: '2.5rem', paddingTop: '1.75rem', borderTop: '1px solid var(--border)' }}>
-                <div className="font-heading" style={{ fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--steel)', letterSpacing: '0.15em', marginBottom: '0.75rem' }}>Follow Our Updates</div>
-                <div style={{ display: 'flex', gap: '1rem' }}>
-                  <a href={BRAND.social.facebook} target="_blank" rel="noreferrer" className="btn-secondary" style={{ padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem' }}>
-                    <Facebook size={16} /> Facebook
-                  </a>
-                  <a href={BRAND.social.twitter} target="_blank" rel="noreferrer" className="btn-secondary" style={{ padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem' }}>
-                    <Twitter size={16} /> Twitter
-                  </a>
-                  <a href={BRAND.social.instagram} target="_blank" rel="noreferrer" className="btn-secondary" style={{ padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem' }}>
-                    <Instagram size={16} /> Instagram
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Column 2: Form */}
-          <div style={{ position: 'relative' }}>
-            <div className="card" style={{ padding: '2.5rem', background: 'var(--surface-1)', position: 'relative', overflow: 'hidden' }}>
-              {/* Success message overlay */}
               {submitted ? (
-                <div style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  textAlign: 'center',
-                  minHeight: '400px',
-                  animation: 'letter-in 0.4s ease'
-                }}>
-                  <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'rgba(232, 200, 75, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gold)', marginBottom: '1.5rem', boxShadow: '0 0 20px rgba(232,200,75,0.2)' }}>
-                    <CheckCircle size={40} />
-                  </div>
-                  <h3 className="font-display" style={{ fontSize: '2.5rem', color: '#fff', marginBottom: '0.75rem' }}>MESSAGE RECEIVED</h3>
-                  <p className="font-heading" style={{ color: 'var(--chrome)', maxWidth: 380, margin: '0 auto 2rem', fontSize: '1rem', lineHeight: 1.5 }}>
-                    Thank you for reaching out! A certified technician will review your request and contact you within the next hour.
+                <div className="py-16 text-center">
+                  <CheckCircle2 size={64} className="mx-auto text-[color:var(--brand-red)] animate-bounce" />
+                  <h3 className="font-display text-3xl chrome-text mt-4">REQUEST RECEIVED!</h3>
+                  <p className="mt-2 text-[color:var(--chrome)]">
+                    We will respond shortly. 🛠️
                   </p>
-                  <button className="btn-secondary" onClick={() => setSubmitted(false)} style={{ fontSize: '0.85rem' }}>
-                    Send Another Message
-                  </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                  <h3 className="font-display" style={{ fontSize: '1.85rem', color: '#fff', marginBottom: '0.5rem' }}>
-                    SEND A MESSAGE
-                  </h3>
+                <form onSubmit={handleSubmit} className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <input required placeholder="First Name *" className="brand-input" type="text" />
+                  <input required placeholder="Last Name *" className="brand-input" type="text" />
+                  <input required type="tel" placeholder="Phone Number *" className="brand-input md:col-span-2" />
+                  <input type="email" placeholder="Email Address" className="brand-input md:col-span-2" />
+                  <input placeholder="Vehicle Info — Year, Make, Model, Mileage" className="brand-input md:col-span-2" />
+                  
+                  <select className="brand-input md:col-span-2">
+                    <option>Service Needed</option>
+                    <option>Brake Systems & Suspension</option>
+                    <option>Batteries / Starters / Alternators</option>
+                    <option>Tune-Up & Maintenance</option>
+                    <option>Engine Work</option>
+                    <option>Transmission Work</option>
+                    <option>Electrical Diagnostics</option>
+                    <option>Fleet Service</option>
+                    <option>Pre-Purchase Inspection</option>
+                    <option>Not Sure — Need Diagnostics</option>
+                    <option>Other</option>
+                  </select>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.25rem' }} className="form-grid-2">
-                    <div>
-                      <label htmlFor="name">Full Name</label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        required
-                        placeholder="John Doe"
-                        value={formData.name}
-                        onChange={handleChange}
-                      />
-                    </div>
+                  <input placeholder="Your Location — Address or general area" className="brand-input md:col-span-2" />
+                  <textarea rows={4} placeholder="Describe the problem — warning lights, sounds, behavior" className="brand-input md:col-span-2" />
+                  
+                  <select className="brand-input">
+                    <option>When do you need service?</option>
+                    <option>ASAP</option>
+                    <option>Today</option>
+                    <option>This Week</option>
+                    <option>This Month</option>
+                    <option>Just Getting Info</option>
+                  </select>
 
-                    <div>
-                      <label htmlFor="email">Email Address</label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        placeholder="john@example.com"
-                        value={formData.email}
-                        onChange={handleChange}
-                      />
-                    </div>
-                  </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.25rem' }} className="form-grid-2">
-                    <div>
-                      <label htmlFor="phone">Phone Number</label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        required
-                        placeholder="(555) 000-0000"
-                        value={formData.phone}
-                        onChange={handleChange}
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="subject">Subject</label>
-                      <input
-                        type="text"
-                        id="subject"
-                        name="subject"
-                        required
-                        placeholder="e.g. Brake Repair Estimate"
-                        value={formData.subject}
-                        onChange={handleChange}
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="message">How Can We Help?</label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      required
-                      rows={5}
-                      placeholder="Please details your vehicle year, make, model and the issues you're experiencing..."
-                      value={formData.message}
-                      onChange={handleChange}
-                      style={{ resize: 'vertical' }}
-                    />
-                  </div>
+                  <select className="brand-input">
+                    <option>How did you find us?</option>
+                    <option>Google</option>
+                    <option>Instagram</option>
+                    <option>Facebook</option>
+                    <option>Twitter / X</option>
+                    <option>Referral</option>
+                    <option>Other</option>
+                  </select>
 
                   <button
                     type="submit"
-                    className="btn-primary"
                     disabled={loading}
-                    style={{
-                      marginTop: '0.5rem',
-                      width: '100%',
-                      padding: '0.9rem',
-                      fontSize: '0.95rem',
-                      opacity: loading ? 0.7 : 1,
-                      cursor: loading ? 'not-allowed' : 'pointer'
-                    }}
+                    className="btn-primary md:col-span-2 !text-xl !py-4 flex justify-center items-center gap-2"
                   >
                     {loading ? (
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span className="spin-slow" style={{ display: 'inline-block', width: '16px', height: '16px', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%' }} /> Sending...
-                      </span>
+                      <span className="spin-slow inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full" />
                     ) : (
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Send size={16} /> Send Message
-                      </span>
+                      <>Send My Request 🔧</>
                     )}
                   </button>
                 </form>
               )}
             </div>
           </div>
-        </div>
-      </div>
 
-      <style>{`
-        @media(min-width: 992px) {
-          .contact-layout {
-            grid-template-columns: 420px 1fr !important;
-          }
-          .form-grid-2 {
-            grid-template-columns: 1fr 1fr !important;
-          }
-        }
-      `}</style>
-    </div>
+          {/* Side Info Column */}
+          <div className="lg:col-span-2 space-y-5">
+            <div className="brand-card">
+              <h3 className="font-display text-2xl chrome-text">DIRECT CONTACT</h3>
+              <ul className="mt-5 space-y-4 text-sm">
+                <li className="flex items-start gap-3">
+                  <Mail size={18} className="text-[color:var(--brand-red)] mt-0.5" />
+                  <a href={`mailto:${BRAND.email}`} className="text-[color:var(--chrome)] hover:text-[color:var(--brand-red)] break-all">
+                    {BRAND.email}
+                  </a>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Facebook size={18} className="text-[color:var(--brand-red)] mt-0.5" />
+                  <a href={BRAND.social.facebook} target="_blank" rel="noreferrer" className="text-[color:var(--chrome)] hover:text-[color:var(--brand-red)]">
+                    Mark Forged Certified Mobile Mechanic LLC
+                  </a>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Twitter size={18} className="text-[color:var(--brand-red)] mt-0.5" />
+                  <a href={BRAND.social.twitter} target="_blank" rel="noreferrer" className="text-[color:var(--chrome)] hover:text-[color:var(--brand-red)]">
+                    @MarkForged_LLC
+                  </a>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Instagram size={18} className="text-[color:var(--brand-red)] mt-0.5" />
+                  <a href={BRAND.social.instagram} target="_blank" rel="noreferrer" className="text-[color:var(--chrome)] hover:text-[color:var(--brand-red)]">
+                    @MarkForged_LLC
+                  </a>
+                </li>
+              </ul>
+              <p className="mt-5 text-xs text-[color:var(--steel)] uppercase tracking-widest">
+                Available 6 Days · Mobile Response
+              </p>
+            </div>
+
+            <div className="rounded-md p-5 border-l-4 border-[color:var(--brand-red)] bg-[color:var(--surface-1)]">
+              <p className="text-sm text-[color:var(--chrome)]">
+                <span className="text-[color:var(--brand-red)] font-heading">⚡ FASTEST RESPONSE:</span> Message us on Facebook or Instagram for quick replies and photo-based diagnostics.
+              </p>
+            </div>
+
+            <div className="rounded-md p-5 border-l-4 border-[color:var(--gold)] bg-[color:var(--surface-1)]">
+              <p className="text-sm text-[color:var(--chrome)]">
+                <span className="text-[color:var(--gold)] font-heading">🛠️ FLEET CLIENTS:</span> Email for fleet maintenance inquiries and scheduled service programs.
+              </p>
+            </div>
+
+            <div className="brand-card flex items-center justify-around gap-4">
+              <div style={{ filter: 'drop-shadow(0 0 12px rgba(232,200,75,0.4))' }}>
+                <ASEBadge size={86} />
+              </div>
+              <div style={{ filter: 'drop-shadow(0 0 12px rgba(204,30,30,0.4))' }}>
+                <MFBadge size={86} />
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </>
   )
 }

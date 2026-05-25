@@ -1,109 +1,165 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { GearWatermark, Sparks } from '../components/index.jsx'
-import { ArrowRight, Wrench, CheckCircle } from 'lucide-react'
-
-const PORTFOLIO_ITEMS = [
-  { id: 1, category: 'Brakes', title: 'Full Brake System Overhaul', desc: 'Complete front and rear brake replacement — pads, rotors, and calipers on a 2019 Toyota Camry. Customer back on the road same day.', tags: ['Brakes', 'Toyota', 'Same Day'] },
-  { id: 2, category: 'Engine', title: 'Engine Timing Belt Replacement', desc: 'Replaced the worn timing belt and water pump on a 2016 Honda Accord to prevent catastrophic engine failure. Preventative maintenance saved the customer thousands.', tags: ['Engine', 'Honda', 'Preventative'] },
-  { id: 3, category: 'Electrical', title: 'Dead Battery & Alternator Swap', desc: 'Customer stranded at work — diagnosed a failing alternator and dead battery. Replaced both in the parking lot within 2 hours.', tags: ['Electrical', 'Emergency', 'Alternator'] },
-  { id: 4, category: 'Diagnostics', title: 'Check Engine Light Diagnosis', desc: 'Traced an intermittent misfire code to a faulty ignition coil on a 2020 Hyundai Elantra. Diagnosed and repaired in one visit.', tags: ['Diagnostics', 'Hyundai', 'OBD-II'] },
-  {
-    id: 5, category: 'Fleet', title: 'Fleet Maintenance — 8 Vehicles', desc: "Scheduled oil changes, tire rotations, and brake inspections for a local delivery company's fleet. All 8 vehicles done in a single weekend.", tags: ['Fleet', 'Commercial', 'Multi-Vehicle'] },
-  { id: 6, category: 'Suspension', title: 'Front Strut & Shock Replacement', desc: 'Replaced worn struts and shocks on a 2017 Ford F-150. Restored ride comfort and handling for a customer doing daily highway commutes.', tags: ['Suspension', 'Ford', 'Ride Quality'] },
-  { id: 7, category: 'Tune-Up', title: 'Complete 100K Mile Tune-Up', desc: 'Spark plugs, air filter, fuel filter, PCV valve, and fluid top-off for a high-mileage 2014 Nissan Altima. Engine runs smoother than new.', tags: ['Tune-Up', 'Nissan', 'Maintenance'] },
-  { id: 8, category: 'Brakes', title: 'Emergency Brake Line Repair', desc: 'Customer noticed brake fluid leak — responded within an hour and replaced the corroded brake line. Potentially life-saving repair done at their home.', tags: ['Brakes', 'Emergency', 'Safety'] },
-]
-
-const CATEGORIES = ['All', ...new Set(PORTFOLIO_ITEMS.map(p => p.category))]
+import React, { useEffect, useState } from 'react'
+import { PageHeader } from '../components/index.jsx'
+import { PORTFOLIO_GALLERY, PORTFOLIO_CATEGORIES, BEFORE_AFTER, BRAND } from '../constants.js'
+import { Instagram, Facebook, Twitter } from 'lucide-react'
 
 export default function Portfolio() {
-  const [filter, setFilter] = useState('All')
-  const filtered = filter === 'All' ? PORTFOLIO_ITEMS : PORTFOLIO_ITEMS.filter(p => p.category === filter)
+  // Set SEO tags
+  useEffect(() => {
+    document.title = "Portfolio | Mark Forged Certified Mobile Mechanic LLC | Actual Mobile Repairs"
+    document.querySelector('meta[name="description"]')?.setAttribute(
+      "content",
+      "Actual mobile auto repairs at client locations. Brakes, batteries, engines, transmissions — repaired on-site by Mark Forged Certified Mobile Mechanic LLC."
+    )
+    document.querySelector('meta[property="og:title"]')?.setAttribute(
+      "content",
+      "Portfolio of Actual Mobile Repairs | Mark Forged Certified Mobile Mechanic"
+    )
+    document.querySelector('meta[property="og:description"]')?.setAttribute(
+      "content",
+      "500+ vehicles repaired. ASE Certified. Genuine before & after documentation."
+    )
+  }, [])
+
+  const [activeCat, setActiveCat] = useState("All")
+
+  const filteredGallery = activeCat === "All"
+    ? PORTFOLIO_GALLERY
+    : PORTFOLIO_GALLERY.filter(item => item.cat === activeCat)
 
   return (
     <>
-      {/* Hero */}
-      <section style={{ position: 'relative', padding: '7rem 1.5rem 4rem', background: '#0A0A0A', overflow: 'hidden' }}>
-        <GearWatermark size={500} top="-10%" right="-100px" />
-        <Sparks count={4} />
-        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          <div className="section-tag">Our Work</div>
-          <h1 className="font-display" style={{ fontSize: 'clamp(3rem, 8vw, 5.5rem)', lineHeight: 0.92, marginBottom: '1rem' }}>
+      <PageHeader
+        eyebrow="Actual Jobs · Actual Clients"
+        title={
+          <>
             <span className="chrome-text">OUR </span>
-            <span style={{ color: 'var(--brand-red)' }}>PORTFOLIO</span>
-          </h1>
-          <p className="font-heading" style={{ color: 'var(--chrome)', fontSize: '1.125rem', maxWidth: 560, lineHeight: 1.65 }}>
-            Real jobs, real results. Here's a look at the work we've done for customers across the Atlanta metro area.
-          </p>
+            <span className="text-[color:var(--brand-red)] red-glow">WORK</span>
+          </>
+        }
+        subtitle="Genuine repairs. Proven results. Real clients — served at their location."
+      />
+
+      {/* Red badge bar */}
+      <section className="py-8" style={{ background: "linear-gradient(90deg, #8B1010, #CC1E1E, #8B1010)" }}>
+        <div className="max-w-[1300px] mx-auto px-6 md:px-10 text-center text-white font-heading text-sm md:text-base tracking-widest uppercase">
+          500+ Vehicles Repaired · ASE Certified · Fully Mobile · Mark Forged Specialist
         </div>
       </section>
 
-      {/* Filter + Grid */}
-      <section className="section" style={{ background: 'var(--surface-1)' }}>
-        <div className="container">
-          {/* Filter tabs */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '2.5rem' }}>
-            {CATEGORIES.map(cat => (
-              <button
-                key={cat}
-                onClick={() => setFilter(cat)}
-                style={{
-                  padding: '0.5rem 1.25rem', borderRadius: 4, border: '1px solid',
-                  borderColor: filter === cat ? 'var(--brand-red)' : 'var(--border)',
-                  background: filter === cat ? 'rgba(204,30,30,0.12)' : 'transparent',
-                  color: filter === cat ? 'var(--brand-red)' : 'var(--chrome)',
-                  fontFamily: 'Barlow, sans-serif', fontWeight: 600, fontSize: '0.8rem',
-                  letterSpacing: '0.08em', textTransform: 'uppercase', cursor: 'pointer',
-                  transition: 'all 0.2s',
-                }}
-              >
-                {cat}
-              </button>
-            ))}
+      {/* Category filters */}
+      <section className="bg-[#0A0A0A] pt-14">
+        <div className="max-w-[1300px] mx-auto px-6 md:px-10 flex flex-wrap gap-3 justify-center">
+          {PORTFOLIO_CATEGORIES.map(cat => (
+            <button
+              key={cat}
+              onClick={() => setActiveCat(cat)}
+              className={`px-5 py-2 rounded-sm font-heading text-sm uppercase tracking-widest transition-colors ${
+                activeCat === cat
+                  ? "bg-[color:var(--brand-red)] text-white"
+                  : "bg-[color:var(--surface-1)] text-[color:var(--chrome)] hover:bg-[color:var(--surface-2)]"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* Before & After section */}
+      <section className="bg-[#0A0A0A] py-16">
+        <div className="max-w-[1300px] mx-auto px-6 md:px-10">
+          <div className="text-center">
+            <div className="eyebrow">Before & After</div>
+            <h2 className="font-display text-3xl md:text-5xl chrome-text mt-3">
+              RESULTS THAT SPEAK FOR THEMSELVES
+            </h2>
           </div>
 
-          {/* Grid */}
-          <div className="grid-auto">
-            {filtered.map(({ id, category, title, desc, tags }) => (
-              <div key={id} className="card" style={{ display: 'flex', flexDirection: 'column' }}>
-                {/* Visual header */}
-                <div style={{
-                  padding: '2rem', position: 'relative', overflow: 'hidden',
-                  background: 'linear-gradient(135deg, rgba(204,30,30,0.1) 0%, var(--surface-2) 100%)',
-                  minHeight: 140, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                }}>
-                  <div style={{
-                    position: 'absolute', inset: 0, opacity: 0.04,
-                    backgroundImage: 'linear-gradient(rgba(204,30,30,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(204,30,30,0.3) 1px, transparent 1px)',
-                    backgroundSize: '20px 20px',
-                  }} />
-                  <Wrench size={48} style={{ color: 'var(--brand-red)', opacity: 0.35 }} />
-                  <span style={{
-                    position: 'absolute', top: '0.75rem', right: '0.75rem',
-                    background: 'rgba(204,30,30,0.15)', border: '1px solid rgba(204,30,30,0.3)',
-                    padding: '0.2rem 0.6rem', borderRadius: 3, fontSize: '0.65rem',
-                    fontFamily: 'Barlow Condensed, sans-serif', color: 'var(--brand-red)',
-                    fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase',
-                  }}>
-                    {category}
-                  </span>
+          <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {BEFORE_AFTER.map(item => (
+              <div key={item.label} className="brand-card !p-3">
+                <div className="grid grid-cols-2 gap-2">
+                  {/* Before */}
+                  <div
+                    className="relative aspect-square rounded-sm overflow-hidden"
+                    style={{ background: "linear-gradient(135deg, #2a2a2a, #0A0A0A)" }}
+                  >
+                    {item.before ? (
+                      <img
+                        src={item.before}
+                        alt={`${item.label} — before`}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 grease-texture" />
+                    )}
+                    <span className="absolute top-2 left-2 bg-[color:var(--brand-red)] text-white text-[10px] font-heading px-2 py-0.5 rounded-sm uppercase z-10">
+                      Before
+                    </span>
+                  </div>
+
+                  {/* After */}
+                  <div
+                    className="relative aspect-square rounded-sm overflow-hidden"
+                    style={{
+                      background: "linear-gradient(135deg, #1A1A1A, #0A0A0A)",
+                      boxShadow: "inset 0 0 20px rgba(204,30,30,0.2)",
+                    }}
+                  >
+                    {item.after ? (
+                      <img
+                        src={item.after}
+                        alt={`${item.label} — after`}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 grease-texture" />
+                    )}
+                    <span className="absolute top-2 left-2 bg-emerald-600 text-white text-[10px] font-heading px-2 py-0.5 rounded-sm uppercase z-10">
+                      After
+                    </span>
+                  </div>
                 </div>
 
-                {/* Content */}
-                <div style={{ padding: '1.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                  <h3 className="font-display" style={{ fontSize: '1.2rem', color: 'var(--foreground)', marginBottom: '0.6rem', letterSpacing: '0.04em' }}>{title}</h3>
-                  <p className="font-heading" style={{ fontSize: '0.875rem', color: 'var(--chrome)', lineHeight: 1.6, marginBottom: '1rem', flex: 1 }}>{desc}</p>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
-                    {tags.map(t => (
-                      <span key={t} style={{
-                        padding: '0.2rem 0.5rem', borderRadius: 3, fontSize: '0.7rem',
-                        background: 'var(--surface-2)', border: '1px solid var(--border)',
-                        color: 'var(--steel)', fontFamily: 'Barlow, sans-serif',
-                      }}>
-                        {t}
-                      </span>
-                    ))}
+                <div className="text-center text-xs text-[color:var(--chrome)] uppercase tracking-widest mt-3 font-heading">
+                  {item.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Live Gallery Section */}
+      <section className="bg-[color:var(--surface-1)] py-16">
+        <div className="max-w-[1300px] mx-auto px-6 md:px-10">
+          <div className="text-center mb-10">
+            <div className="eyebrow">Live Gallery</div>
+            <h2 className="font-display text-3xl md:text-5xl chrome-text mt-3">
+              STRAIGHT FROM THE FIELD
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {filteredGallery.map((item, idx) => (
+              <div
+                key={idx}
+                className="group relative overflow-hidden rounded-md border border-[#1F1F1F] bg-black aspect-[4/5]"
+              >
+                <img
+                  src={item.src}
+                  alt={`${item.label} — Mark Forged Certified Mobile Mechanic`}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/65 transition-colors flex items-end p-4">
+                  <div>
+                    <div className="text-[color:var(--brand-red)] font-heading text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                      Mark Forged Mobile Mechanic
+                    </div>
+                    <div className="font-display text-white text-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                      {item.label}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -112,23 +168,37 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section style={{ background: 'var(--brand-red)', padding: '4rem 1.5rem', textAlign: 'center' }}>
-        <div className="container">
-          <h2 className="font-display" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: '#fff', marginBottom: '1rem' }}>
-            YOUR CAR COULD BE NEXT
-          </h2>
-          <p className="font-heading" style={{ color: 'rgba(255,255,255,0.8)', maxWidth: 500, margin: '0 auto 2rem', lineHeight: 1.6 }}>
-            Let us handle your repair — right at your door, with certified results.
-          </p>
-          <Link to="/book" style={{
-            display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-            background: '#fff', color: 'var(--brand-red)', fontFamily: 'Barlow, sans-serif',
-            fontWeight: 700, fontSize: '0.9rem', padding: '0.75rem 1.75rem',
-            borderRadius: 4, border: 'none', textTransform: 'uppercase', letterSpacing: '0.08em',
-          }}>
-            Book Now <ArrowRight size={16} />
-          </Link>
+      {/* Follow section */}
+      <section className="bg-[#0A0A0A] py-16">
+        <div className="max-w-[900px] mx-auto px-6 md:px-10">
+          <div
+            className="brand-card text-center"
+            style={{
+              borderColor: "var(--brand-red)",
+              boxShadow: "0 0 40px rgba(204,30,30,0.25)",
+            }}
+          >
+            <h3 className="font-display text-3xl chrome-text">📸 STAY CONNECTED</h3>
+            <p className="mt-3 text-[color:var(--chrome)]">
+              See real jobs, on-location repairs, and before/after documentation.
+            </p>
+            <div className="mt-6 flex justify-center gap-4">
+              <a href={BRAND.social.instagram} target="_blank" rel="noreferrer" className="btn-primary">
+                <Instagram size={18} /> Visit Instagram
+              </a>
+            </div>
+            <div className="mt-6 flex justify-center gap-5 text-[color:var(--chrome)]">
+              <a href={BRAND.social.facebook} target="_blank" rel="noreferrer" className="hover:text-[color:var(--brand-red)]">
+                <Facebook size={22} />
+              </a>
+              <a href={BRAND.social.twitter} target="_blank" rel="noreferrer" className="hover:text-[color:var(--brand-red)]">
+                <Twitter size={22} />
+              </a>
+              <a href={BRAND.social.instagram} target="_blank" rel="noreferrer" className="hover:text-[color:var(--brand-red)]">
+                <Instagram size={22} />
+              </a>
+            </div>
+          </div>
         </div>
       </section>
     </>

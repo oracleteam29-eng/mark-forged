@@ -1,33 +1,33 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { Facebook, Twitter, Instagram, Menu, X } from 'lucide-react'
+import { BRAND, NAV_LINKS } from '../constants.js'
 
-// ── Logo SVG Icon ──────────────────────────────────────────
+// ── Logo Image Icon ──────────────────────────────────────────
 export function LogoIcon({ className = 'h-11 w-11' }) {
   return (
-    <svg viewBox="0 0 80 80" className={className} aria-label="Mark Forged Logo" fill="none">
-      <circle cx="40" cy="40" r="38" fill="#0A0A0A" stroke="#CC1E1E" strokeWidth="3" />
-      <path d="M40 12 L46 26 L60 20 L54 34 L68 38 L54 42 L60 56 L46 50 L40 64 L34 50 L20 56 L26 42 L12 38 L26 34 L20 20 L34 26 Z"
-        fill="none" stroke="#C0C8D0" strokeWidth="2" opacity="0.6" />
-      <circle cx="40" cy="40" r="12" fill="#CC1E1E" opacity="0.9" />
-      <path d="M36 40 L39 43 L44 37" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-      <text x="40" y="56" textAnchor="middle" fill="#E8C84B" fontFamily="Bebas Neue,sans-serif" fontSize="8" letterSpacing="1">MF</text>
-    </svg>
+    <img
+      src="/assets/logo.png"
+      alt="Mark Forged Logo"
+      className={className}
+      style={{ objectFit: 'contain' }}
+    />
   )
 }
 
 // ── Logo Wordmark ──────────────────────────────────────────
 export function LogoWordmark() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1, gap: 2 }}>
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
-        <span className="font-display chrome-text" style={{ fontSize: '1.25rem', letterSpacing: '0.08em' }}>
+    <div className="flex flex-col leading-none">
+      <div className="flex items-baseline gap-2">
+        <span className="font-display text-[22px] text-[color:var(--brand-red)] tracking-wide">
           MARK FORGED
         </span>
-        <span className="font-heading gold-text" style={{ fontSize: '0.65rem', letterSpacing: '0.2em', fontWeight: 700, textTransform: 'uppercase' }}>
+        <span className="font-heading text-[12px] text-[color:var(--gold)] uppercase tracking-widest">
           LLC
         </span>
       </div>
-      <span className="font-heading" style={{ fontSize: '0.6rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--chrome)', fontWeight: 600 }}>
+      <span className="font-heading text-[11px] uppercase tracking-[0.18em] chrome-text">
         Mobile Mechanic
       </span>
     </div>
@@ -48,8 +48,8 @@ export function GearSVG({ className = '' }) {
 export function GearWatermark({ size = 420, top = '10%', right = '-80px' }) {
   return (
     <div
-      className="gear-watermark"
-      style={{ width: size, height: size, top, right, color: 'var(--brand-red)' }}
+      className="gear-watermark text-[color:var(--brand-red)]"
+      style={{ width: size, height: size, top, right }}
       aria-hidden="true"
     >
       <GearSVG className="w-full h-full" />
@@ -61,7 +61,7 @@ export function GearWatermark({ size = 420, top = '10%', right = '-80px' }) {
 export function Sparks({ count = 6 }) {
   const sparks = Array.from({ length: count })
   return (
-    <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }} aria-hidden="true">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
       {sparks.map((_, i) => {
         const isRed = i % 2 === 0
         const left = (i * 17 + 10) % 95
@@ -124,10 +124,9 @@ export function MFBadge({ size = 96 }) {
     <svg viewBox="0 0 120 120" width={size} height={size} aria-label="Mark Forged Certified">
       <circle cx="60" cy="60" r="56" fill="#0A0A0A" stroke="#CC1E1E" strokeWidth="3" />
       <path d="M 14 60 A 46 46 0 0 1 106 60" fill="none" stroke="#CC1E1E" strokeWidth="10" strokeDasharray="4 6" />
-      <text x="60" y="50" textAnchor="middle" fill="#C0C8D0" fontFamily="Bebas Neue,sans-serif" fontSize="15">MARK</text>
-      <text x="60" y="64" textAnchor="middle" fill="#C0C8D0" fontFamily="Bebas Neue,sans-serif" fontSize="15">FORGED</text>
-      <text x="60" y="78" textAnchor="middle" fill="#E8C84B" fontFamily="Barlow,sans-serif" fontSize="7" letterSpacing="1.5">CERTIFIED</text>
-      <text x="60" y="90" textAnchor="middle" fill="#909090" fontFamily="Barlow,sans-serif" fontSize="6" letterSpacing="1">SPECIALIST</text>
+      <text x="60" y="55" textAnchor="middle" fill="#C0C8D0" fontFamily="Bebas Neue,sans-serif" fontSize="18">MARK FORGED</text>
+      <text x="60" y="70" textAnchor="middle" fill="#E8C84B" fontFamily="Barlow,sans-serif" fontSize="7" letterSpacing="1.5">CERTIFIED</text>
+      <text x="60" y="84" textAnchor="middle" fill="#909090" fontFamily="Barlow,sans-serif" fontSize="6" letterSpacing="1">SPECIALIST</text>
     </svg>
   )
 }
@@ -153,57 +152,43 @@ export function LoadingScreen() {
 
   return (
     <div
-      style={{
-        position: 'fixed', inset: 0, zIndex: 200,
-        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-        background: '#0A0A0A',
-        opacity: fading ? 0 : 1,
-        transition: 'opacity 0.5s ease',
-      }}
+      className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-[#0A0A0A] transition-opacity duration-500"
+      style={{ opacity: fading ? 0 : 1 }}
     >
-      {/* Spinning ring + logo */}
-      <div style={{ position: 'relative', width: 200, height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div className="relative flex items-center justify-center" style={{ width: 200, height: 200 }}>
         <div
-          className="spin-slow"
+          className="absolute inset-0 spin-slow opacity-40"
           style={{
-            position: 'absolute', inset: 0,
             background: 'conic-gradient(from 0deg, transparent 0%, #CC1E1E 25%, transparent 50%, #C0C8D0 75%, transparent 100%)',
             borderRadius: '50%',
             mask: 'radial-gradient(circle, transparent 60%, #000 62%, #000 80%, transparent 82%)',
             WebkitMask: 'radial-gradient(circle, transparent 60%, #000 62%, #000 80%, transparent 82%)',
-            opacity: 0.5,
           }}
         />
-        <LogoIcon className="w-32 h-32" style={{ position: 'relative', zIndex: 1 }} />
+        <LogoIcon className="w-32 h-32 relative z-10" />
       </div>
 
-      {/* Animated title */}
-      <div style={{ marginTop: '2rem', display: 'flex', alignItems: 'baseline', gap: '0.75rem' }}>
-        <h2 className="font-display chrome-text" style={{ fontSize: 'clamp(1.75rem, 5vw, 2.5rem)', letterSpacing: '0.06em' }}>
+      <div className="mt-8 flex items-baseline gap-3">
+        <h2 className="font-display text-3xl md:text-4xl chrome-text">
           {title.split('').map((ch, i) => (
-            <span key={i} className="letter-in" style={{ display: 'inline-block', animationDelay: `${1.5 + i * 0.05}s` }}>
+            <span key={i} className="letter-in inline-block" style={{ animationDelay: `${1.5 + i * 0.04}s` }}>
               {ch === ' ' ? '\u00A0' : ch}
             </span>
           ))}
         </h2>
-        <span className="font-heading gold-text letter-in" style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.15em', animationDelay: '2.2s' }}>
+        <span className="font-heading text-sm text-[color:var(--gold)] letter-in" style={{ animationDelay: '2.2s' }}>
           LLC
         </span>
       </div>
 
-      <p className="font-heading letter-in" style={{
-        marginTop: '0.6rem', fontSize: '0.65rem', letterSpacing: '0.28em',
-        textTransform: 'uppercase', color: 'var(--chrome)', animationDelay: '2.5s',
-      }}>
+      <p className="mt-3 text-[10px] md:text-xs text-[color:var(--chrome)] tracking-[0.3em] uppercase letter-in" style={{ animationDelay: '2.5s' }}>
         Certified Mobile Automotive Specialist
       </p>
 
-      {/* Progress bar */}
-      <div style={{ marginTop: '2rem', width: 260, height: 3, background: '#1A1A1A', borderRadius: 4, overflow: 'hidden' }}>
+      <div className="mt-8 w-64 h-[3px] bg-[#1A1A1A] rounded-full overflow-hidden">
         <div
-          className="progress-fill"
+          className="h-full progress-fill"
           style={{
-            height: '100%',
             background: 'linear-gradient(90deg, #8B1010, #CC1E1E, #E83030)',
             boxShadow: '0 0 10px #CC1E1E',
           }}
@@ -214,9 +199,6 @@ export function LoadingScreen() {
 }
 
 // ── Navbar ─────────────────────────────────────────────────
-import { NAV_LINKS, BRAND } from '../constants.js'
-import { Facebook, Twitter, Instagram, Menu, X } from 'lucide-react'
-
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
@@ -233,34 +215,32 @@ export function Navbar() {
 
   return (
     <header
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-        transition: 'all 0.3s ease',
         background: scrolled ? 'rgba(10,10,10,0.97)' : 'rgba(10,10,10,0.55)',
         backdropFilter: 'blur(14px)',
         borderBottom: scrolled ? '2px solid var(--brand-red)' : '2px solid transparent',
         boxShadow: scrolled ? '0 4px 24px rgba(0,0,0,0.6)' : 'none',
       }}
     >
-      <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 1.25rem', height: 70, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        {/* Logo */}
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <LogoIcon className="h-11 w-11" style={{ filter: 'drop-shadow(0 0 8px rgba(204,30,30,0.4))' }} />
+      <div className="max-w-[1400px] mx-auto px-5 md:px-10 h-[70px] flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-3">
+          <LogoIcon className="h-11 w-11" />
           <LogoWordmark />
         </Link>
 
         {/* Desktop Nav */}
-        <nav style={{ display: 'none', alignItems: 'center', gap: '1.75rem' }} className="desktop-nav">
-          {NAV_LINKS.map(({ to, label }) => (
+        <nav className="hidden lg:flex items-center gap-7">
+          {NAV_LINKS.map(link => (
             <Link
-              key={to}
-              to={to}
-              className={`nav-link${location.pathname === to ? ' active' : ''}`}
+              key={link.to}
+              to={link.to}
+              className={`nav-link${location.pathname === link.to ? ' active' : ''}`}
             >
-              {label}
+              {link.label}
             </Link>
           ))}
-          <Link to="/book" className="btn-primary" style={{ padding: '0.6rem 1.25rem', fontSize: '0.8rem' }}>
+          <Link to="/book" className="btn-primary !py-[10px] !px-6 !text-[16px]">
             Book Now
           </Link>
         </nav>
@@ -268,9 +248,8 @@ export function Navbar() {
         {/* Hamburger */}
         <button
           onClick={() => setOpen(o => !o)}
-          className="hamburger-btn"
+          className="lg:hidden p-2 text-[color:var(--brand-red)]"
           aria-label="Toggle menu"
-          style={{ background: 'none', border: 'none', color: 'var(--brand-red)', padding: '0.5rem' }}
         >
           {open ? <X size={26} /> : <Menu size={26} />}
         </button>
@@ -278,32 +257,32 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div style={{
-          background: '#0A0A0A', borderTop: '1px solid #1A1A1A',
-          padding: '1.5rem 1.25rem', display: 'flex', flexDirection: 'column', gap: '1rem',
-        }}>
-          {NAV_LINKS.map(({ to, label }) => (
-            <Link key={to} to={to} className={`nav-link${location.pathname === to ? ' active' : ''}`}>
-              {label}
+        <div className="lg:hidden bg-[#0A0A0A] border-t border-[#1A1A1A] px-5 py-6 flex flex-col gap-4">
+          {NAV_LINKS.map(link => (
+            <Link
+              key={link.to}
+              to={link.to}
+              className={`nav-link${location.pathname === link.to ? ' active' : ''}`}
+            >
+              {link.label}
             </Link>
           ))}
-          <Link to="/book" className="btn-primary" style={{ marginTop: '0.5rem', textAlign: 'center' }}>
+          <Link to="/book" className="btn-primary mt-2">
             Book Now
           </Link>
-          <div style={{ display: 'flex', gap: '1rem', paddingTop: '1rem', borderTop: '1px solid #1A1A1A' }}>
-            <a href={BRAND.social.facebook} target="_blank" rel="noreferrer" style={{ color: 'var(--chrome)' }}><Facebook size={20} /></a>
-            <a href={BRAND.social.twitter} target="_blank" rel="noreferrer" style={{ color: 'var(--chrome)' }}><Twitter size={20} /></a>
-            <a href={BRAND.social.instagram} target="_blank" rel="noreferrer" style={{ color: 'var(--chrome)' }}><Instagram size={20} /></a>
+          <div className="flex gap-4 pt-4 border-t border-[#1A1A1A]">
+            <a href={BRAND.social.facebook} target="_blank" rel="noreferrer" className="text-[color:var(--chrome)] hover:text-[color:var(--brand-red)]">
+              <Facebook size={20} />
+            </a>
+            <a href={BRAND.social.twitter} target="_blank" rel="noreferrer" className="text-[color:var(--chrome)] hover:text-[color:var(--brand-red)]">
+              <Twitter size={20} />
+            </a>
+            <a href={BRAND.social.instagram} target="_blank" rel="noreferrer" className="text-[color:var(--chrome)] hover:text-[color:var(--brand-red)]">
+              <Instagram size={20} />
+            </a>
           </div>
         </div>
       )}
-
-      <style>{`
-        @media(min-width:1024px){
-          .desktop-nav { display: flex !important; }
-          .hamburger-btn { display: none !important; }
-        }
-      `}</style>
     </header>
   )
 }
@@ -311,94 +290,89 @@ export function Navbar() {
 // ── Footer ─────────────────────────────────────────────────
 export function Footer() {
   return (
-    <footer style={{ background: '#080808', borderTop: '1px solid #151515' }}>
-      <div className="shimmer-bar" style={{ height: 3 }} />
-      <div style={{ maxWidth: 1400, margin: '0 auto', padding: '4rem 1.5rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '2.5rem' }}>
+    <footer className="bg-[#080808] border-t border-[#151515] mt-0">
+      <div className="h-[3px] shimmer-bar" />
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Brand */}
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <LogoIcon style={{ width: 56, height: 56 }} />
+          <div className="flex items-center gap-3">
+            <LogoIcon className="h-14 w-14" />
             <div>
-              <div className="font-display chrome-text" style={{ fontSize: '1.35rem' }}>MARK FORGED</div>
-              <div className="gold-text font-heading" style={{ fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>Mobile Mechanic LLC</div>
+              <div className="font-display text-2xl chrome-text leading-none">MARK FORGED</div>
+              <div className="font-heading text-[color:var(--gold)] text-xs tracking-widest mt-1">LLC</div>
             </div>
           </div>
-          <p style={{ fontSize: '0.875rem', color: 'var(--chrome)', marginTop: '1.25rem', lineHeight: 1.6 }}>
-            Certified Mobile Automotive Specialist 🛠️
+          <p className="text-sm text-[color:var(--chrome)] mt-5 leading-relaxed">
+            Mark Forged Certified Mobile Automotive Specialist 🛠️
           </p>
-          <p style={{ fontSize: '0.75rem', color: 'var(--steel)', marginTop: '0.25rem' }}>
+          <p className="text-xs text-[color:var(--steel)] mt-1">
             ASE Certified · Honest · Reliable · Experienced
           </p>
-          <div style={{ display: 'flex', gap: '1rem', marginTop: '1.25rem' }}>
-            <a href={BRAND.social.facebook} target="_blank" rel="noreferrer" style={{ color: 'var(--chrome)', transition: 'color 0.2s' }}
-              onMouseEnter={e => e.target.style.color = 'var(--brand-red)'}
-              onMouseLeave={e => e.target.style.color = 'var(--chrome)'}
-            ><Facebook size={20} /></a>
-            <a href={BRAND.social.twitter} target="_blank" rel="noreferrer" style={{ color: 'var(--chrome)', transition: 'color 0.2s' }}
-              onMouseEnter={e => e.target.style.color = 'var(--brand-red)'}
-              onMouseLeave={e => e.target.style.color = 'var(--chrome)'}
-            ><Twitter size={20} /></a>
-            <a href={BRAND.social.instagram} target="_blank" rel="noreferrer" style={{ color: 'var(--chrome)', transition: 'color 0.2s' }}
-              onMouseEnter={e => e.target.style.color = 'var(--brand-red)'}
-              onMouseLeave={e => e.target.style.color = 'var(--chrome)'}
-            ><Instagram size={20} /></a>
+          <div className="flex gap-4 mt-5">
+            <a href={BRAND.social.facebook} target="_blank" rel="noreferrer" className="text-[color:var(--chrome)] hover:text-[color:var(--brand-red)] transition-colors">
+              <Facebook size={20} />
+            </a>
+            <a href={BRAND.social.twitter} target="_blank" rel="noreferrer" className="text-[color:var(--chrome)] hover:text-[color:var(--brand-red)] transition-colors">
+              <Twitter size={20} />
+            </a>
+            <a href={BRAND.social.instagram} target="_blank" rel="noreferrer" className="text-[color:var(--chrome)] hover:text-[color:var(--brand-red)] transition-colors">
+              <Instagram size={20} />
+            </a>
           </div>
         </div>
 
         {/* Services */}
         <div>
-          <h4 className="font-display" style={{ fontSize: '1.2rem', color: 'var(--foreground)', marginBottom: '1rem' }}>Services</h4>
-          <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.875rem', color: 'var(--steel)' }}>
-            {['Brake Systems & Suspension','Batteries, Starters & Alternators','Tune-Ups & Maintenance','Engine & Transmission','Fleet Maintenance','Diagnostics & Check Engine'].map(s => (
-              <li key={s}><Link to="/services" style={{ transition: 'color 0.2s' }}
-                onMouseEnter={e => e.target.style.color = 'var(--brand-red)'}
-                onMouseLeave={e => e.target.style.color = 'var(--steel)'}
-              >{s}</Link></li>
-            ))}
+          <h4 className="font-display text-xl text-[color:var(--foreground)] mb-4">Services</h4>
+          <ul className="space-y-2 text-sm text-[color:var(--steel)]">
+            <li><Link to="/services" className="hover:text-[color:var(--brand-red)]">Brake Systems & Suspension</Link></li>
+            <li><Link to="/services" className="hover:text-[color:var(--brand-red)]">Batteries, Starters & Alternators</Link></li>
+            <li><Link to="/services" className="hover:text-[color:var(--brand-red)]">Tune-Ups & Maintenance</Link></li>
+            <li><Link to="/services" className="hover:text-[color:var(--brand-red)]">Engine & Transmission</Link></li>
+            <li><Link to="/services" className="hover:text-[color:var(--brand-red)]">Fleet Maintenance</Link></li>
+            <li><Link to="/services" className="hover:text-[color:var(--brand-red)]">Diagnostics & Check Engine</Link></li>
           </ul>
         </div>
 
         {/* Quick Links */}
         <div>
-          <h4 className="font-display" style={{ fontSize: '1.2rem', color: 'var(--foreground)', marginBottom: '1rem' }}>Quick Links</h4>
-          <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.875rem', color: 'var(--steel)' }}>
-            {NAV_LINKS.concat([{ to: '/book', label: 'Book Now' }]).map(({ to, label }) => (
-              <li key={to}><Link to={to} style={{ transition: 'color 0.2s' }}
-                onMouseEnter={e => e.target.style.color = 'var(--brand-red)'}
-                onMouseLeave={e => e.target.style.color = 'var(--steel)'}
-              >{label}</Link></li>
-            ))}
+          <h4 className="font-display text-xl text-[color:var(--foreground)] mb-4">Quick Links</h4>
+          <ul className="space-y-2 text-sm text-[color:var(--steel)]">
+            <li><Link to="/" className="hover:text-[color:var(--brand-red)]">Home</Link></li>
+            <li><Link to="/about" className="hover:text-[color:var(--brand-red)]">About</Link></li>
+            <li><Link to="/services" className="hover:text-[color:var(--brand-red)]">Services</Link></li>
+            <li><Link to="/service-areas" className="hover:text-[color:var(--brand-red)]">Service Areas</Link></li>
+            <li><Link to="/portfolio" className="hover:text-[color:var(--brand-red)]">Portfolio</Link></li>
+            <li><Link to="/faq" className="hover:text-[color:var(--brand-red)]">FAQ</Link></li>
+            <li><Link to="/contact" className="hover:text-[color:var(--brand-red)]">Contact</Link></li>
           </ul>
         </div>
 
         {/* Contact */}
         <div>
-          <h4 className="font-display" style={{ fontSize: '1.2rem', color: 'var(--foreground)', marginBottom: '1rem' }}>Contact</h4>
-          <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.875rem', color: 'var(--steel)' }}>
+          <h4 className="font-display text-xl text-[color:var(--foreground)] mb-4">Contact</h4>
+          <ul className="space-y-3 text-sm text-[color:var(--steel)]">
             <li>
-              <a href={`mailto:${BRAND.email}`} style={{ transition: 'color 0.2s' }}
-                onMouseEnter={e => e.target.style.color = 'var(--brand-red)'}
-                onMouseLeave={e => e.target.style.color = 'var(--steel)'}
-              >{BRAND.email}</a>
+              <a href={`mailto:${BRAND.email}`} className="hover:text-[color:var(--brand-red)] transition-colors break-all">
+                {BRAND.email}
+              </a>
             </li>
             <li>
-              <a href={`tel:${BRAND.phone}`} style={{ transition: 'color 0.2s' }}
-                onMouseEnter={e => e.target.style.color = 'var(--brand-red)'}
-                onMouseLeave={e => e.target.style.color = 'var(--steel)'}
-              >{BRAND.phone}</a>
+              <a href={`tel:${BRAND.phone}`} className="hover:text-[color:var(--brand-red)] transition-colors">
+                {BRAND.phone}
+              </a>
             </li>
-            <li><a href={BRAND.social.facebook} target="_blank" rel="noreferrer" style={{ color: 'var(--steel)' }}>Mark Forged Mechanic</a></li>
           </ul>
-          <p style={{ color: 'var(--gold)', fontSize: '0.875rem', marginTop: '1.25rem', fontFamily: 'Barlow, sans-serif' }}>
+          <p className="text-xs text-[color:var(--steel)] mt-5">
+            Available 7 Days · Mobile Response
+          </p>
+          <p className="text-sm text-[color:var(--gold)] mt-1 font-heading uppercase tracking-wider">
             We Come To You 🧰
           </p>
-          <Link to="/book" className="btn-primary" style={{ display: 'inline-flex', marginTop: '1rem', fontSize: '0.875rem' }}>
-            Book Now
-          </Link>
         </div>
       </div>
 
-      <div style={{ background: '#040404', padding: '1.25rem 1rem', textAlign: 'center', fontSize: '0.75rem', color: 'var(--steel)' }}>
+      <div className="bg-[#040404] py-5 px-4 text-center text-xs text-[color:var(--steel)] border-t border-[#101010]">
         {BRAND.copyright} | Mark Forged Certified Mobile Automotive Specialist | ASE Certified
       </div>
     </footer>
@@ -414,6 +388,22 @@ export function ScrollToTop() {
   return null
 }
 
+// ── Page Header Component ──────────────────────────────────
+export function PageHeader({ eyebrow, title, subtitle, children }) {
+  return (
+    <section className="relative bg-[#0A0A0A] grease-texture overflow-hidden border-b border-[#1A1A1A]">
+      <GearWatermark size={500} top="-120px" right="-160px" />
+      <Sparks count={5} />
+      <div className="relative max-w-[1200px] mx-auto px-6 md:px-10 py-24 md:py-32 text-center">
+        {eyebrow && <div className="eyebrow mb-4">{eyebrow}</div>}
+        <h1 className="font-display text-5xl md:text-7xl chrome-text leading-[0.95]">{title}</h1>
+        {subtitle && <p className="mt-5 text-base md:text-lg text-[color:var(--chrome)] max-w-2xl mx-auto leading-relaxed">{subtitle}</p>}
+        {children}
+      </div>
+    </section>
+  )
+}
+
 // ── Layout ─────────────────────────────────────────────────
 export function Layout({ children }) {
   return (
@@ -421,7 +411,7 @@ export function Layout({ children }) {
       <LoadingScreen />
       <ScrollToTop />
       <Navbar />
-      <main className="page-wrapper">{children}</main>
+      <main className="pt-[70px]">{children}</main>
       <Footer />
     </>
   )

@@ -1,6 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* ============================================================
    MARK FORGED CERTIFIED MOBILE MECHANIC LLC — Global Styles
    ============================================================ */
+
 
 /* ── Custom Properties ── */
 :root {
@@ -17,13 +22,17 @@
   --surface-3: #202020;
   --background: #0A0A0A;
   --foreground: #E8EAF0;
-  --border: #222222;
+  --border: #1F1F1F;
   --muted: #181818;
   --muted-foreground: #6B7280;
   --input: #222;
   --primary: #CC1E1E;
   --primary-foreground: #fff;
   --radius: 0.5rem;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-heading: 'Barlow', sans-serif;
+  --font-condensed: 'Barlow Condensed', sans-serif;
+  --font-body: 'Inter', sans-serif;
 }
 
 /* ── Reset & Base ── */
@@ -41,16 +50,16 @@ html {
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: 'Inter', 'Barlow', ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   min-height: 100vh;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Bebas Neue', sans-serif;
-  letter-spacing: 0.04em;
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
 }
 
 img, svg, video {
@@ -73,9 +82,9 @@ ul, ol {
 }
 
 /* ── Typography Helpers ── */
-.font-display  { font-family: 'Bebas Neue', sans-serif; }
-.font-heading  { font-family: 'Barlow', sans-serif; }
-.font-condensed { font-family: 'Barlow Condensed', sans-serif; }
+.font-display  { font-family: var(--font-display); }
+.font-heading  { font-family: var(--font-heading); }
+.font-condensed { font-family: var(--font-condensed); }
 
 /* ── Chrome gradient text ── */
 .chrome-text {
@@ -92,15 +101,29 @@ ul, ol {
   background-clip: text;
 }
 
+/* ── Red glow ── */
+.red-glow {
+  text-shadow: 0 0 20px rgba(204, 30, 30, 0.5), 0 0 40px rgba(204, 30, 30, 0.2);
+}
+.red-glow-box {
+  box-shadow: 0 0 20px rgba(204, 30, 30, 0.35);
+}
+
+/* ── Grease / noise texture overlay ── */
+.grease-texture {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
 /* ── Buttons ── */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: linear-gradient(135deg, var(--brand-red-dark), var(--brand-red), var(--brand-red-bright));
+  background: var(--brand-red);
   color: #fff;
-  font-family: 'Barlow', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 700;
   font-size: 0.9rem;
   letter-spacing: 0.08em;
@@ -115,22 +138,10 @@ ul, ol {
   white-space: nowrap;
 }
 
-.btn-primary::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.12) 50%, transparent 100%);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-
 .btn-primary:hover {
+  background: var(--brand-red-bright);
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(204, 30, 30, 0.5);
-}
-
-.btn-primary:hover::after {
-  opacity: 1;
 }
 
 .btn-secondary {
@@ -140,7 +151,7 @@ ul, ol {
   gap: 0.5rem;
   background: transparent;
   color: var(--chrome);
-  font-family: 'Barlow', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 600;
   font-size: 0.9rem;
   letter-spacing: 0.06em;
@@ -158,9 +169,42 @@ ul, ol {
   transform: translateY(-1px);
 }
 
-/* ── Nav link ── */
+/* ── Brand card (dark elevated panel) ── */
+.brand-card {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Brand input ── */
+.brand-input {
+  background: var(--surface-2);
+  border: 1px solid #2A2A2A;
+  border-radius: 6px;
+  color: var(--foreground);
+  font-family: var(--font-heading);
+  font-size: 0.9375rem;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.brand-input:focus {
+  border-color: var(--brand-red);
+  box-shadow: 0 0 0 3px rgba(204,30,30,0.15);
+}
+
+.brand-input::placeholder {
+  color: var(--steel);
+}
+
+/* ── Nav ── */
 .nav-link {
-  font-family: 'Barlow', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 600;
   font-size: 0.85rem;
   letter-spacing: 0.1em;
@@ -192,12 +236,12 @@ ul, ol {
   width: 100%;
 }
 
-/* ── Section heading ── */
-.section-tag {
+/* ── Eyebrow (used in JSX as className="eyebrow") ── */
+.eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: var(--font-condensed);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.25em;
@@ -206,6 +250,58 @@ ul, ol {
   margin-bottom: 0.75rem;
 }
 
+.eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 2px;
+  background: var(--brand-red);
+  border-radius: 2px;
+}
+
+/* ── Section Title Bar (red left accent) ── */
+.section-title-bar {
+  position: relative;
+  padding-left: 1rem;
+  border-left: 3px solid var(--brand-red);
+}
+
+/* ── Section Eyebrow (legacy alias) ── */
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-condensed);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--brand-red);
+  margin-bottom: 0.75rem;
+}
+
+.section-eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 2px;
+  background: var(--brand-red);
+  border-radius: 2px;
+}
+
+/* legacy alias */
+.section-tag { 
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-condensed);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--brand-red);
+  margin-bottom: 0.75rem;
+}
 .section-tag::before {
   content: '';
   display: block;
@@ -228,6 +324,29 @@ ul, ol {
   border-color: rgba(204, 30, 30, 0.4);
   box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(204,30,30,0.15);
   transform: translateY(-3px);
+}
+
+/* ── Service image card with hover zoom ── */
+.service-img-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.service-img-card img {
+  transition: transform 0.5s ease;
+}
+.service-img-card:hover img {
+  transform: scale(1.05);
+}
+.service-img-card .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.4) 50%, transparent 100%);
+  transition: background 0.3s;
+}
+.service-img-card:hover .overlay {
+  background: linear-gradient(to top, rgba(10,10,10,0.98) 0%, rgba(10,10,10,0.55) 50%, rgba(204,30,30,0.05) 100%);
 }
 
 /* ── Gear watermark ── */
@@ -296,7 +415,7 @@ ul, ol {
   100% { background-position: -200% 0; }
 }
 
-/* ── Service area badge ── */
+/* ── Area badge ── */
 .area-badge {
   display: inline-flex;
   align-items: center;
@@ -305,7 +424,7 @@ ul, ol {
   border: 1px solid var(--border);
   border-radius: 4px;
   padding: 0.4rem 0.9rem;
-  font-family: 'Barlow', sans-serif;
+  font-family: var(--font-heading);
   font-size: 0.85rem;
   color: var(--chrome);
   transition: all 0.2s;
@@ -367,7 +486,7 @@ ul, ol {
   background: none;
   border: none;
   cursor: pointer;
-  font-family: 'Barlow', sans-serif;
+  font-family: var(--font-heading);
   font-size: 1rem;
   font-weight: 600;
   color: var(--foreground);
@@ -379,19 +498,19 @@ ul, ol {
 
 .faq-answer {
   padding: 0 1.5rem 1.25rem;
-  font-family: 'Barlow', sans-serif;
+  font-family: var(--font-heading);
   font-size: 0.9375rem;
   color: var(--chrome);
   line-height: 1.65;
 }
 
-/* ── Input / Form ── */
+/* ── Input / Form (legacy) ── */
 input, textarea, select {
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: 4px;
   color: var(--foreground);
-  font-family: 'Barlow', sans-serif;
+  font-family: var(--font-heading);
   font-size: 0.9375rem;
   padding: 0.75rem 1rem;
   width: 100%;
@@ -406,7 +525,7 @@ input:focus, textarea:focus, select:focus {
 
 label {
   display: block;
-  font-family: 'Barlow', sans-serif;
+  font-family: var(--font-heading);
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -425,9 +544,9 @@ label {
 .hero-gradient {
   background: linear-gradient(
     135deg,
-    rgba(10,10,10,0.96) 0%,
-    rgba(10,10,10,0.8) 50%,
-    rgba(30,10,10,0.7) 100%
+    rgba(10,10,10,0.92) 0%,
+    rgba(40,8,8,0.85) 60%,
+    rgba(10,10,10,0.95) 100%
   );
 }
 
@@ -439,18 +558,42 @@ label {
   margin: 0;
 }
 
-/* ── Floating CTA pulse ── */
-@keyframes pulse-ring {
-  0%   { transform: scale(1); opacity: 0.6; }
-  50%  { transform: scale(1.15); opacity: 0.3; }
-  100% { transform: scale(1); opacity: 0.6; }
-}
-
 /* ── Responsive grid helpers ── */
 .grid-auto {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
+}
+
+/* ── Before/After slider ── */
+.before-after {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+/* ── Animated counter ── */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Review screenshot card ── */
+.review-card {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: border-color 0.3s, transform 0.3s;
+}
+.review-card:hover {
+  border-color: rgba(204,30,30,0.4);
+  transform: translateY(-4px);
+}
+.review-card img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* ── Scrollbar ── */
@@ -461,3 +604,13 @@ label {
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover { background: var(--brand-red); }
+
+/* ── Responsive helpers ── */
+@media (min-width: 768px) {
+  .md-grid-2 { grid-template-columns: 1fr 1fr; }
+  .md-grid-3 { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1024px) {
+  .lg-grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .lg-grid-4 { grid-template-columns: repeat(4, 1fr); }
+}
