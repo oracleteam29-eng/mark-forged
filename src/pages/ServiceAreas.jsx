@@ -62,7 +62,7 @@ export default function ServiceAreas() {
             </p>
           </div>
 
-          <div className="mt-10 grid md:grid-cols-3 gap-6">
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
                 icon: <HomeIcon className="text-[color:var(--brand-red)]" size={28} />,

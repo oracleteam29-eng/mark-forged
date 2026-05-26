@@ -90,7 +90,7 @@ export default function Book() {
                   <h3 className="font-display text-3xl text-[color:var(--brand-red)]">
                     TELL US ABOUT YOUR VEHICLE
                   </h3>
-                  <div className="mt-6 grid md:grid-cols-2 gap-4">
+                  <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input type="number" placeholder="Vehicle Year" className="brand-input" />
                     <input placeholder="Make (e.g. Ford, Toyota)" className="brand-input" />
                     <input placeholder="Model" className="brand-input" />
@@ -149,7 +149,7 @@ export default function Book() {
                   <h3 className="font-display text-3xl text-[color:var(--brand-red)]">
                     WHERE IS YOUR VEHICLE?
                   </h3>
-                  <div className="mt-6 grid md:grid-cols-2 gap-4">
+                  <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input required placeholder="Your Name *" className="brand-input md:col-span-2" />
                     <input required type="tel" placeholder="Phone Number *" className="brand-input" />
                     <input type="email" placeholder="Email Address" className="brand-input" />

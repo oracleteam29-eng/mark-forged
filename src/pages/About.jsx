@@ -70,9 +70,9 @@ export default function About() {
       />
 
       {/* Story Section */}
-      <section className="bg-[color:var(--surface-1)] py-24 relative overflow-hidden">
+      <section className="bg-[color:var(--surface-1)] py-16 md:py-24 relative overflow-hidden">
         <GearWatermark size={500} top="-100px" right="-150px" />
-        <div className="relative max-w-[1300px] mx-auto px-6 md:px-10 grid lg:grid-cols-2 gap-12 items-center">
+        <div className="relative max-w-[1300px] mx-auto px-6 md:px-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <div className="eyebrow">Our Background</div>
             <h2 className="font-display text-4xl md:text-5xl text-[color:var(--brand-red)] mt-3 section-title-bar">
@@ -94,7 +94,7 @@ export default function About() {
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative max-w-md mx-auto lg:max-w-none">
             <div className="rounded-lg overflow-hidden border-2 border-[color:var(--brand-red)] red-glow-box">
               <img
                 src="/assets/fb1.jpg"
@@ -107,11 +107,11 @@ export default function About() {
       </section>
 
       {/* Credentials Section */}
-      <section className="bg-[#0A0A0A] py-24 relative overflow-hidden">
+      <section className="bg-[#0A0A0A] py-16 md:py-24 relative overflow-hidden">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 text-center">
           <div className="eyebrow">Qualifications</div>
           <h2 className="font-display text-4xl md:text-6xl chrome-text mt-3">DUAL CERTIFIED</h2>
-          <div className="mt-12 grid md:grid-cols-2 gap-6">
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="brand-card flex flex-col items-center text-center">
               <div style={{ filter: 'drop-shadow(0 0 20px rgba(232,200,75,0.4))' }}>
                 <ASEBadge size={130} />
@@ -137,7 +137,7 @@ export default function About() {
 
       {/* Values Section */}
       <section
-        className="py-24 relative overflow-hidden"
+        className="py-16 md:py-24 relative overflow-hidden"
         style={{
           background: 'linear-gradient(135deg, #8B1010 0%, #1A0606 60%, #0A0A0A 100%)',
         }}
@@ -151,7 +151,7 @@ export default function About() {
             </p>
           </div>
 
-          <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {VALUES.map(val => (
               <div key={val.title} className="bg-[#0A0A0A] border-l-4 border-[color:var(--brand-red)] p-5 rounded-sm">
                 <div className="text-2xl">{val.icon}</div>
@@ -183,14 +183,14 @@ export default function About() {
       </section>
 
       {/* Owner Section */}
-      <section className="bg-[color:var(--surface-1)] py-24">
+      <section className="bg-[color:var(--surface-1)] py-16 md:py-24">
         <div className="max-w-[1000px] mx-auto px-6 md:px-10">
           <div className="brand-card">
-            <div className="grid md:grid-cols-3 gap-8 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
               <div className="md:col-span-1">
-                <div className="rounded-md overflow-hidden border border-[color:var(--brand-red)]/50">
+                <div className="rounded-md overflow-hidden border border-[color:var(--brand-red)]/50 max-w-sm mx-auto w-full">
                   <img
-                    src="/assets/jay-owner.png"
+                    src="/assets/mark-owner.png"
                     alt="MARK DERRICK, Lead Technician"
                     className="w-full h-72 object-cover object-top"
                   />
@@ -229,7 +229,7 @@ export default function About() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="bg-[color:var(--surface-2)] py-24 grease-texture">
+      <section className="bg-[color:var(--surface-2)] py-16 md:py-24 grease-texture">
         <div className="max-w-[1300px] mx-auto px-6 md:px-10">
           <div className="text-center">
             <div className="eyebrow">The Mark Forged Advantage</div>
@@ -237,7 +237,7 @@ export default function About() {
               WHY PICK MARK FORGED
             </h2>
           </div>
-          <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {WHY_CHOOSE_US.map(item => (
               <div key={item.title} className="brand-card">
                 <div className="text-3xl">{item.icon}</div>

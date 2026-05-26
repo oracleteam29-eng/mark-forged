@@ -1,6 +1,6 @@
 # Mark Forged Certified Mobile Mechanic LLC
 
-🚗 **Certified Mobile Auto Repair Specialist** — ASE & JAyVORTEX Certified expertise, brought straight to your doorstep.
+🚗 **Certified Mobile Auto Repair Specialist** — ASE & MarkVORTEX Certified expertise, brought straight to your doorstep.
 
 ---
 

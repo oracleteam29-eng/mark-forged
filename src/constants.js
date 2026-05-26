@@ -10,9 +10,9 @@ export const BRAND = {
   phone: '(555) 800-MARK',
   copyright: '© 2025 Mark Forged Certified Mobile Mechanic LLC. All Rights Reserved.',
   social: {
-    facebook: 'https://www.facebook.com/profile.php?id=61582756770311',
-    instagram: 'https://instagram.com/Jaymelvin010',
-    twitter: 'https://twitter.com/Jaymobile_LLC',
+    facebook: 'https://www.facebook.com/profile.php?id=6158275677031',
+    instagram: 'https://instagram.com/Markforgedllc',
+    twitter: 'https://twitter.com/Markforgedllc',
   },
 }
 
@@ -36,7 +36,7 @@ export const SERVICES = [
   {
     img: '/assets/battery.png',
     title: 'Battery, Starter & Alternator Repairs',
-    desc: "Vehicle won't turn over? Electrical issues? Jay identifies and replaces batteries, starters, and alternators at your location — no towing required.",
+    desc: "Vehicle won't turn over? Electrical issues? Mark identifies and replaces batteries, starters, and alternators at your location — no towing required.",
   },
   {
     img: '/assets/tuneup.png',
@@ -46,12 +46,12 @@ export const SERVICES = [
   {
     img: '/assets/transmission.png',
     title: 'Engine & Transmission Services',
-    desc: 'From basic engine repairs to advanced transmission diagnostics — Jay delivers full-shop expertise right to wherever your vehicle is parked.',
+    desc: 'From basic engine repairs to advanced transmission diagnostics — Mark delivers full-shop expertise right to wherever your vehicle is parked.',
   },
   {
     img: '/assets/more.png',
     title: 'Additional Services — At Your Door',
-    desc: 'Cooling systems, exhaust work, sensors, diagnostics, oil changes, and everything else your vehicle demands. If a shop can do it, Jay handles it on-site.',
+    desc: 'Cooling systems, exhaust work, sensors, diagnostics, oil changes, and everything else your vehicle demands. If a shop can do it, Mark handles it on-site.',
   },
 ]
 
@@ -81,7 +81,7 @@ export const BOOKABLE_SERVICES = [
 export const DETAILED_SERVICES = [
   {
     title: 'Brake & Suspension Services',
-    body: 'Your braking system is the most vital safety feature on your vehicle — and it deserves attention from a certified professional. Jay Melvin Thomas delivers complete brake service at your location, covering everything from initial diagnostics to full component replacement and fluid bleeding. We also tackle comprehensive suspension work including shocks, struts, control arms, and steering parts.',
+    body: 'Your braking system is the most vital safety feature on your vehicle — and it deserves attention from a certified professional. MARK DERRICK delivers complete brake service at your location, covering everything from initial diagnostics to full component replacement and fluid bleeding. We also tackle comprehensive suspension work including shocks, struts, control arms, and steering parts.',
     items: [
       'Full brake pad replacement (all wheels)',
       'Rotor inspection and replacement',
@@ -97,7 +97,7 @@ export const DETAILED_SERVICES = [
   },
   {
     title: 'Battery, Starter & Alternator Repairs',
-    body: "Being stranded with a vehicle that won't start is incredibly frustrating — especially when you're far from home. Jay diagnoses and swaps out batteries, starters, and alternators on-site so you can get moving again without waiting for a tow. We test your complete charging system to pinpoint the actual cause, not just apply a temporary patch.",
+    body: "Being stranded with a vehicle that won't start is incredibly frustrating — especially when you're far from home. Mark diagnoses and swaps out batteries, starters, and alternators on-site so you can get moving again without waiting for a tow. We test your complete charging system to pinpoint the actual cause, not just apply a temporary patch.",
     items: [
       'Battery load testing & swap',
       'Starter motor replacement',
@@ -127,7 +127,7 @@ export const DETAILED_SERVICES = [
   },
   {
     title: 'Engine & Transmission Services',
-    body: 'Whether it\'s misfires, oil leaks, transmission slipping, or clutch issues — Jay brings engine and transmission knowledge directly to your vehicle. In-depth on-site diagnostics using professional scan tools ensure we identify the root problem, not just the symptoms.',
+    body: 'Whether it\'s misfires, oil leaks, transmission slipping, or clutch issues — Mark brings engine and transmission knowledge directly to your vehicle. In-depth on-site diagnostics using professional scan tools ensure we identify the root problem, not just the symptoms.',
     items: [
       'Engine scan (OBD-II diagnostic)',
       'Misfire troubleshooting & repair',
@@ -143,7 +143,7 @@ export const DETAILED_SERVICES = [
   },
   {
     title: 'Additional Services — At Your Door',
-    body: 'A complete range of automotive repair services — all delivered mobile. If a traditional shop can handle it, Jay Melvin Thomas can do it wherever your vehicle sits.',
+    body: 'A complete range of automotive repair services — all delivered mobile. If a traditional shop can handle it, MARK DERRICK can do it wherever your vehicle sits.',
     items: [
       'Cooling system / radiator maintenance',
       'Exhaust system fixes',
@@ -164,17 +164,17 @@ export const TEXT_TESTIMONIALS = [
   {
     name: 'Marcus W.',
     source: 'Google Review',
-    quote: "Jay showed up at my place and handled the brakes the same day. I saved $200 compared to the shop quote and never had to leave home. This is hands-down the best way to get car work done.",
+    quote: "Mark showed up at my place and handled the brakes the same day. I saved $200 compared to the shop quote and never had to leave home. This is hands-down the best way to get car work done.",
   },
   {
     name: 'Sarah T.',
     source: 'Facebook Review',
-    quote: "Outstanding service! Our delivery van died on us. Jay arrived within the hour, found a bad starter, sourced the part, and had it installed. Absolutely no lost time for our company.",
+    quote: "Outstanding service! Our delivery van died on us. Mark arrived within the hour, found a bad starter, sourced the part, and had it installed. Absolutely no lost time for our company.",
   },
   {
     name: 'David L.',
     source: 'Yelp Review',
-    quote: 'Can\'t recommend enough. Super professional, upfront pricing, and top-notch workmanship. Jay completed a full 100k service on my Accord in my driveway while I worked remotely.',
+    quote: 'Can\'t recommend enough. Super professional, upfront pricing, and top-notch workmanship. Mark completed a full 100k service on my Accord in my driveway while I worked remotely.',
   },
 ]
 
@@ -190,7 +190,7 @@ export const FAQS = [
   },
   {
     q: 'Do you hold any certifications?',
-    a: 'Absolutely. Jay Melvin Thomas is ASE (Automotive Service Excellence) certified and holds JAyVORTEX Certified Mobile Automotive Specialist credentials — dual certifications representing professional-level mastery in both mobile and traditional automotive repair.',
+    a: 'Absolutely. MARK DERRICK is ASE (Automotive Service Excellence) certified and holds MARK FORGED Certified Mobile Mechanic Specialist credentials — dual certifications representing professional-level mastery in both mobile and traditional automotive repair.',
   },
   {
     q: 'Which locations do you cover?',
@@ -261,7 +261,7 @@ export const VALUES = [
 
 // Why Choose Us list
 export const WHY_CHOOSE_US = [
-  { icon: '🏆', title: 'ASE + JAyVORTEX Certified', desc: 'Dual credentials mean professional-grade skill on every job.' },
+  { icon: '🏆', title: 'ASE + MARK FORGED CERTIFIED MOBILE MECHANIC', desc: 'Dual credentials mean professional-grade skill on every job.' },
   { icon: '🚗', title: 'We Travel To You', desc: 'Home, office, parking lot, job site — wherever your vehicle is located.' },
   { icon: '💰', title: 'No Shop Rent = Better Value', desc: "We don't pay for a bay. Those savings get passed to you." },
   { icon: '⏱️', title: 'Cut Your Downtime', desc: 'No tow truck. No waiting area. Your vehicle gets repaired right where it is.' },

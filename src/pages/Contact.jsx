@@ -47,7 +47,7 @@ export default function Contact() {
       />
 
       <section className="bg-[color:var(--surface-1)] py-20">
-        <div className="max-w-[1300px] mx-auto px-6 md:px-10 grid lg:grid-cols-5 gap-10">
+        <div className="max-w-[1300px] mx-auto px-6 md:px-10 grid grid-cols-1 lg:grid-cols-5 gap-10">
           
           {/* Form Column */}
           <div className="lg:col-span-3">

@@ -174,9 +174,15 @@ ul, ol {
   background: var(--surface-1);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 2rem;
+  padding: 1.25rem;
   position: relative;
   overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .brand-card {
+    padding: 2rem;
+  }
 }
 
 /* ── Brand input ── */
@@ -613,4 +619,15 @@ label {
 @media (min-width: 1024px) {
   .lg-grid-3 { grid-template-columns: repeat(3, 1fr); }
   .lg-grid-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ── Small Mobile Screen Tweaks ── */
+@media (max-width: 375px) {
+  .logo-text-brand {
+    font-size: 18px !important;
+  }
+  .logo-text-tag {
+    font-size: 9px !important;
+    letter-spacing: 0.12em !important;
+  }
 }

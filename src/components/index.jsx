@@ -20,14 +20,14 @@ export function LogoWordmark() {
   return (
     <div className="flex flex-col leading-none">
       <div className="flex items-baseline gap-2">
-        <span className="font-display text-[22px] text-[color:var(--brand-red)] tracking-wide">
+        <span className="font-display text-[22px] text-[color:var(--brand-red)] tracking-wide logo-text-brand">
           MARK FORGED
         </span>
-        <span className="font-heading text-[12px] text-[color:var(--gold)] uppercase tracking-widest">
+        <span className="font-heading text-[12px] text-[color:var(--gold)] uppercase tracking-widest logo-text-llc">
           LLC
         </span>
       </div>
-      <span className="font-heading text-[11px] uppercase tracking-[0.18em] chrome-text">
+      <span className="font-heading text-[11px] uppercase tracking-[0.18em] chrome-text logo-text-tag">
         Mobile Mechanic
       </span>
     </div>

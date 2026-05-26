@@ -39,6 +39,17 @@ function Counter({ to, suffix = "" }) {
 }
 
 export default function Home() {
+  const videoRef = useRef(null)
+
+  // Force play background video on mount / user interaction if blocked
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(err => {
+        console.warn("Video autoplay blocked or failed:", err)
+      })
+    }
+  }, [])
+
   // Set SEO tags on mount
   useEffect(() => {
     document.title = "Mark Forged Certified Mobile Mechanic LLC | Professional Auto Repair At Your Door"
@@ -62,19 +73,22 @@ export default function Home() {
       <section className="relative h-screen min-h-[680px] flex items-center justify-center overflow-hidden bg-[#0A0A0A]">
         {/* Video BG */}
         <video
-          src="/hero-bg.mp4"
+          ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
+          poster="/assets/work-engine.png"
           className="absolute inset-0 w-full h-full object-cover"
           aria-hidden="true"
-        />
+        >
+          <source src="/hero-bg.mp4" type="video/mp4" />
+        </video>
         {/* Gradients */}
         <div
           className="absolute inset-0"
           style={{
-            background: 'linear-gradient(135deg, rgba(10,10,10,0.92) 0%, rgba(40,8,8,0.85) 60%, rgba(10,10,10,0.95) 100%)',
+            background: 'linear-gradient(135deg, rgba(10,10,10,0.8) 0%, rgba(40,8,8,0.7) 60%, rgba(10,10,10,0.85) 100%)',
           }}
         />
         <div className="absolute inset-0 grease-texture" />
@@ -149,7 +163,7 @@ export default function Home() {
       </section>
 
       {/* ── Services Section ── */}
-      <section className="relative bg-[color:var(--surface-2)] py-24 md:py-28 overflow-hidden grease-texture">
+      <section className="relative bg-[color:var(--surface-2)] py-16 md:py-24 overflow-hidden grease-texture">
         <GearWatermark size={500} top="5%" right="-150px" />
         <div className="relative max-w-[1300px] mx-auto px-6 md:px-10">
           <div className="text-center max-w-3xl mx-auto">
@@ -193,7 +207,7 @@ export default function Home() {
       </section>
 
       {/* ── Why Choose Us Section ── */}
-      <section className="relative bg-[#0A0A0A] py-24 md:py-28 overflow-hidden">
+      <section className="relative bg-[#0A0A0A] py-16 md:py-24 overflow-hidden">
         <GearWatermark size={550} top="0" right="-200px" />
         <div className="relative max-w-[1300px] mx-auto px-6 md:px-10 grid lg:grid-cols-2 gap-12 items-start">
           <div>
@@ -227,11 +241,11 @@ export default function Home() {
       </section>
 
       {/* ── 3 Steps Process ── */}
-      <section className="relative bg-[color:var(--surface-2)] py-24 md:py-28 grease-texture">
+      <section className="relative bg-[color:var(--surface-2)] py-16 md:py-24 grease-texture">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 text-center">
           <div className="eyebrow">How It Works</div>
           <h2 className="font-display text-4xl md:text-6xl chrome-text mt-3">3 SIMPLE STEPS</h2>
-          <div className="mt-14 grid md:grid-cols-3 gap-8 relative">
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-8 relative">
             {[
               {
                 n: 1,
@@ -270,7 +284,7 @@ export default function Home() {
       </section>
 
       {/* ── Credentials ── */}
-      <section className="bg-[#0A0A0A] py-24 md:py-28 relative overflow-hidden">
+      <section className="bg-[#0A0A0A] py-16 md:py-24 relative overflow-hidden">
         <GearWatermark size={600} top="-100px" right="-200px" />
         <div className="relative max-w-[1100px] mx-auto px-6 md:px-10 text-center">
           <div className="eyebrow">Professional Credentials</div>
@@ -298,13 +312,13 @@ export default function Home() {
             </div>
           </div>
           <p className="mt-10 max-w-3xl mx-auto text-[color:var(--chrome)] leading-relaxed">
-            Lead Specialist Jay Melvin Thomas carries ASE certification — the automotive industry's benchmark for service excellence — along with Mark Forged Certified Mobile Automotive Specialist credentials. When you schedule with Mark Forged Certified Mobile Mechanic LLC, you're getting a professionally trained, certified technician — not just someone with a toolbox. 🛠️
+            Lead Specialist MARK DERRICK carries ASE certification — the automotive industry's benchmark for service excellence — along with Mark Forged Certified Mobile Automotive Specialist credentials. When you schedule with Mark Forged Certified Mobile Mechanic LLC, you're getting a professionally trained, certified technician — not just someone with a toolbox. 🛠️
           </p>
         </div>
       </section>
 
       {/* ── Testimonials ── */}
-      <section className="bg-[color:var(--surface-1)] py-24 md:py-28">
+      <section className="bg-[color:var(--surface-1)] py-16 md:py-24">
         <div className="max-w-[1300px] mx-auto px-6 md:px-10">
           <div className="text-center">
             <div className="eyebrow">What Clients Say</div>
@@ -312,7 +326,7 @@ export default function Home() {
               TRANSPARENT. DEPENDABLE. SKILLED.
             </h2>
           </div>
-          <div className="mt-14 grid md:grid-cols-3 gap-6">
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6">
             {TEXT_TESTIMONIALS.map(t => (
               <div key={t.name} className="brand-card relative">
                 <div className="absolute top-3 right-5 text-6xl text-[color:var(--dark-steel)] font-display leading-none">
@@ -338,7 +352,7 @@ export default function Home() {
 
       {/* ── CTA Band ── */}
       <section
-        className="relative py-24 md:py-32 overflow-hidden"
+        className="relative py-16 md:py-24 overflow-hidden"
         style={{
           background: 'linear-gradient(135deg, #CC1E1E 0%, #8B1010 60%, #2A0808 100%)',
         }}
